@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginFragment">
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="home.samples.shoponline.ui.registration.LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_LoginFragment_to_CafeFragment"
+            app:destination="@id/CafeFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CafeFragment"
+        android:name="home.samples.quickcoffee.ui.cafe.CafeFragment"
+        tools:layout="@layout/fragment_cafe">
+
+        <argument
+            android:name="token"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_CafeFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+
+        <action
+            android:id="@+id/action_CafeFragment_to_MapFragment"
+            app:destination="@id/MapFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/MapFragment"
+        android:name="home.samples.quickcoffee.ui.map.MapFragment"
+        tools:layout="@layout/fragment_map">
+
+        <argument
+            android:name="token"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_MapFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+
+        <action
+            android:id="@+id/action_MapFragment_to_CafeFragment"
+            app:destination="@id/CafeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/MenuFragment"
+        android:name="home.samples.quickcoffee.ui.menu.MenuFragment"
+        tools:layout="@layout/fragment_menu">
+
+        <argument
+            android:name="token"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <argument
+            android:name="cafeId"
+            android:defaultValue="0"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_MenuFragment_to_OrderFragment"
+            app:destination="@id/OrderFragment" />
+
+        <action
+            android:id="@+id/action_MenuFragment_to_CafeFragment"
+            app:destination="@id/CafeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/OrderFragment"
+        android:name="home.samples.quickcoffee.ui.order.OrderFragment"
+        tools:layout="@layout/fragment_order">
+
+        <action
+            android:id="@+id/action_OrderFragment_to_RegistrationFragment"
+            app:destination="@id/RegistrationFragment"
+            app:popUpTo="@+id/RegistrationFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_OrderFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+
+    </fragment>
+
+</navigation>
