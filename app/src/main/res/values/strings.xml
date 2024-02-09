@@ -6,10 +6,13 @@
     <string name="phone_number">Номер телефона</string>
     <string name="enter">Войти</string>
     <string name="loyalty_program_string_1">Нажимая кнопку “Войти”, Вы принимаете</string>
-    <string name="loyalty_program_string_2">условия программы лояльности</string>
+    <string name="loyalty_program_string_2"><u>условия программы лояльности</u></string>
     <string name="main">Главная</string>
     <string name="catalog">Каталог</string>
     <string name="basket">Корзина</string>
     <string name="discounts">Акции</string>
     <string name="profile">Профиль</string>
+    <string name="phone_number_mask">+7 (***) ***-**-**</string>
+    <string name="phone_number_prefix">+7 (</string>
+    <string name="phone_number_mask_short">***) ***-**-**</string>
 </resources>

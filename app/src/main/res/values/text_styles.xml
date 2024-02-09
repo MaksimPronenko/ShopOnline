@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Regular" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+    </style>
+
+    <style name="Semibold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/sf_pro_display_semibold</item>
+    </style>
+
+    <style name="Bold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/sf_pro_display_bold</item>
+    </style>
+
+    <style name="Regular.10_Pink">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/pink</item>
+    </style>
+
+    <style name="Regular.10_GreyMenuText">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/grey_menu_text</item>
+    </style>
+
+    <style name="Regular.16">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

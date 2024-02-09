@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.registration.RegistrationFragment">
+
+    <TextView
+        android:id="@+id/registration_fragment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:text="@string/entry"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/loyalty_program_string_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registration_fragment_title">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/first_name_layout"
+            style="@style/ShopInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:errorEnabled="false"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/first_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:hint="@string/first_name"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_text"
+                android:drawableEnd="@drawable/cross_x"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/surname_layout"
+            style="@style/ShopInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:errorEnabled="false"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/surname_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:hint="@string/surname"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="16dp"
+                android:drawableEnd="@drawable/cross_x"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_text"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phone_number_layout"
+            style="@style/ShopInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:errorEnabled="false"
+            app:placeholderText="@string/phone_number_mask_short"
+            app:placeholderTextAppearance="@style/Regular.16"
+            app:placeholderTextColor="@color/black"
+            app:prefixText="@string/phone_number_prefix"
+            app:prefixTextAppearance="@style/Regular.16"
+            app:prefixTextColor="@color/black"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_number_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_pro_display_regular"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:maxLength="18"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="15dp"
+                android:drawableEnd="@drawable/cross_x"
+                android:paddingBottom="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_text"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/register_button"
+            style="@style/ButtonBrownBorderlessHeight48"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_rounded_8"
+            android:padding="13dp"
+            android:text="@string/enter"
+            tools:ignore="VisualLintButtonSize" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/loyalty_program_string_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:text="@string/loyalty_program_string_1"
+        android:textColor="@color/grey_text"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@id/loyalty_program_string_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SmallSp,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/loyalty_program_string_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:text="@string/loyalty_program_string_2"
+        android:textColor="@color/grey_text"
+        android:textSize="10sp"
+        android:textStyle=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SmallSp,TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
