@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/spinner_arrow" android:gravity="center_vertical|right" />
+            <item android:drawable="@drawable/spinner_left_image" android:gravity="center_vertical|left" />
+        </layer-list>
+    </item>
+</selector>

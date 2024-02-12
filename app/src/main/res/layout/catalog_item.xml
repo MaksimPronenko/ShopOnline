@@ -1,100 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="168dp"
+    android:layout_height="287dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="165dp"
-        android:layout_height="205dp"
-        android:layout_margin="6.5dp"
-        android:background="@drawable/menu_item_background"
-        android:elevation="2dp">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="144dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/customRoundedImageView"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ImageContrastCheck" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="137dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/customRoundedImageView"
-            app:srcCompat="@drawable/ic_launcher_background"
-            tools:ignore="ImageContrastCheck" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/heart_empty"
+        app:layout_constraintEnd_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/coffee_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="11dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/sf_ui_display_semibold"
-            android:singleLine="true"
-            android:textColor="@color/brown_light_text"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image"
-            tools:ignore="TextContrastCheck"
-            tools:text="@tools:sample/cities" />
+    <TextView
+        android:id="@+id/old_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:singleLine="true"
+        android:textColor="@color/grey_text"
+        android:textSize="9sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/cities" />
 
-        <TextView
-            android:id="@+id/cost"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="11dp"
-            android:fontFamily="@font/sf_ui_display_heavy"
-            android:singleLine="true"
-            android:textColor="@color/brown_text"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coffee_name"
-            tools:ignore="TextSizeCheck"
-            tools:text="@tools:sample/cities" />
+    <TextView
+        android:id="@+id/new_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/old_price"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/cities" />
 
-        <ImageButton
-            android:id="@+id/minus_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="3dp"
-            android:backgroundTint="@color/transparent"
-            android:src="@drawable/minus"
-            app:layout_constraintBottom_toBottomOf="@id/cost"
-            app:layout_constraintStart_toEndOf="@id/cost"
-            app:layout_constraintTop_toTopOf="@id/cost"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
+    <TextView
+        android:id="@+id/price_discount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/discount_background"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@id/new_price"
+        app:layout_constraintStart_toEndOf="@id/new_price"
+        app:layout_constraintTop_toTopOf="@id/new_price"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/cities" />
 
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="10dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:fontFamily="@font/sf_ui_display_medium"
-            android:textColor="@color/brown_text"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/cost"
-            app:layout_constraintStart_toEndOf="@id/minus_button"
-            app:layout_constraintTop_toTopOf="@id/cost"
-            tools:ignore="TextSizeCheck"
-            tools:text="2" />
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/new_price"
+        tools:ignore="TextContrastCheck"
+        tools:text="@tools:sample/cities" />
 
-        <ImageButton
-            android:id="@+id/plus_button"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="9dp"
-            android:backgroundTint="@color/transparent"
-            android:src="@drawable/plus"
-            app:layout_constraintBottom_toBottomOf="@id/cost"
-            app:layout_constraintStart_toEndOf="@id/quantity"
-            app:layout_constraintTop_toTopOf="@id/cost"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
+    <TextView
+        android:id="@+id/product_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="none"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:singleLine="false"
+        android:textColor="@color/grey_menu_text"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_title"
+        tools:ignore="SmallSp,TextSizeCheck"
+        tools:text="@tools:sample/cities" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="6dp"
+        android:src="@drawable/star"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_subtitle"
+        tools:ignore="ContentDescription" />
 
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:singleLine="true"
+        android:textColor="@color/orange"
+        android:textSize="9sp"
+        app:layout_constraintStart_toEndOf="@id/star"
+        app:layout_constraintTop_toTopOf="@id/star"
+        app:layout_constraintBottom_toBottomOf="@id/star"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:id="@+id/feedback_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:singleLine="true"
+        android:textColor="@color/grey_text"
+        android:textSize="9sp"
+        app:layout_constraintStart_toEndOf="@id/rating"
+        app:layout_constraintTop_toTopOf="@id/rating"
+        app:layout_constraintBottom_toBottomOf="@id/rating"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/cities" />
+    
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/plus_white"
+        android:background="@drawable/button_pink_background" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

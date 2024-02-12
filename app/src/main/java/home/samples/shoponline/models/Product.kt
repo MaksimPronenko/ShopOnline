@@ -1,5 +1,9 @@
 package home.samples.shoponline.models
 
+data class ShopData(
+    val items: List<Product>
+)
+
 data class Product(
     val id: String,
     val title: String,

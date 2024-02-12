@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ButtonBrownBorderlessHeight48" parent="Widget.AppCompat.Button.Borderless">
+    <style name="ButtonBrownBorderlessHeight51" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:backgroundTint">@drawable/button_colors</item>
         <item name="android:minHeight">51dp</item>
         <item name="android:strokeWidth">0</item>
@@ -28,6 +28,41 @@
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/sf_pro_display_regular</item>
         <item name="android:labelTextSize">20sp</item>
+    </style>
+
+    <style name="CatalogSortingSpinnerItemStyle"
+        parent="@style/Widget.AppCompat.TextView.SpinnerItem">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/grey_menu_text</item>
+    </style>
+
+    <style name="CatalogSortingSpinnerDropdownItemStyle"
+        parent="@style/Widget.AppCompat.DropDownItem.Spinner">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/grey_menu_text</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:background">@drawable/spinner_background</item>
+    </style>
+
+    <style name="CatalogChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_colors</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/chip_text_colors</item>
+        <item name="textStartPadding">12dp</item>
+        <item name="textEndPadding">12dp</item>
+        <item name="closeIconVisible">false</item>
+        <item name="closeIconEndPadding">8dp</item>
+        <item name="closeIconTint">@color/white</item>
+        <item name="closeIconSize">8dp</item>
+        <item name="closeIcon">@drawable/chip_close</item>
+        <item name="chipCornerRadius">14dp</item>
+        <item name="chipMinHeight">28dp</item>
     </style>
 
 </resources>

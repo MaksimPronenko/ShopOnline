@@ -12,7 +12,22 @@
     <string name="basket">Корзина</string>
     <string name="discounts">Акции</string>
     <string name="profile">Профиль</string>
+    <string name="favourites">Избранное</string>
     <string name="phone_number_mask">+7 (***) ***-**-**</string>
     <string name="phone_number_prefix">+7 (</string>
     <string name="phone_number_mask_short">***) ***-**-**</string>
+    <string name="by_popularity">По популярности</string>
+    <string name="reducing_prices">По уменьшению цены</string>
+    <string name="ascending_prices">По возрастанию цены</string>
+    <string name="filters">Фильтры</string>
+    <string name="watch_all">Смотреть всё</string>
+    <string name="face">Лицо</string>
+    <string name="body">Тело</string>
+    <string name="suntan">Загар</string>
+    <string name="mask">Маски</string>
+    <string-array name="sorting_types">
+        <item>По популярности</item>
+        <item>По уменьшению цены</item>
+        <item>По возрастанию цены</item>
+    </string-array>
 </resources>

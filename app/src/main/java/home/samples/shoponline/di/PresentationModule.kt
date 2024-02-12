@@ -9,8 +9,6 @@ import home.samples.shoponline.ui.catalog.CatalogViewModel
 import home.samples.shoponline.ui.catalog.CatalogViewModelFactory
 import home.samples.shoponline.ui.favourites.FavouritesViewModel
 import home.samples.shoponline.ui.favourites.FavouritesViewModelFactory
-import home.samples.shoponline.ui.main.MainViewModel
-import home.samples.shoponline.ui.main.MainViewModelFactory
 import home.samples.shoponline.ui.product.ProductViewModel
 import home.samples.shoponline.ui.product.ProductViewModelFactory
 import home.samples.shoponline.ui.profile.ProfileViewModel
@@ -36,27 +34,13 @@ class PresentationModule {
     }
 
     @Provides
-    fun provideMainViewModel(
-        repository: Repository
-    ): MainViewModel {
-        return MainViewModel(
-            repository
-        )
-    }
-
-    @Provides
-    fun provideMainViewModelFactory(mainViewModel: MainViewModel): MainViewModelFactory {
-        return MainViewModelFactory(mainViewModel)
-    }
-
-    @Provides
 //    @Singleton
     fun provideCatalogViewModel(
-        repository: Repository,
+        repository: Repository
 //        application: App
     ): CatalogViewModel {
         return CatalogViewModel(
-            repository,
+            repository
 //            application
         )
     }

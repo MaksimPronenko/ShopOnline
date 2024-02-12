@@ -27,8 +27,9 @@
         android:layout_gravity="bottom"
         android:background="@drawable/bottom_menu_background"
         android:paddingHorizontal="22dp"
-        app:itemIconTint="@drawable/bottom_menu_icon_colors"
-        app:itemTextColor="@drawable/bottom_menu_text_colors"
+        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:itemIconTint="@color/bottom_menu_icon_colors"
+        app:itemTextColor="@color/bottom_menu_text_colors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,3 @@
         app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-

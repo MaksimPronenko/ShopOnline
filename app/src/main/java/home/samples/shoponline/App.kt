@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.room.Room
 import dagger.hilt.android.HiltAndroidApp
 import home.samples.shoponline.data.AppDatabase
-import java.util.*
 import javax.inject.Inject
 
 @HiltAndroidApp

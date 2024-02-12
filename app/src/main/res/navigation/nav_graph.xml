@@ -34,6 +34,9 @@
         android:name="home.samples.shoponline.ui.catalog.CatalogFragment"
         tools:layout="@layout/fragment_catalog">
 
+        <action
+            android:id="@+id/action_CatalogFragment_to_ProductFragment"
+            app:destination="@id/ProductFragment"/>
 
     </fragment>
 
@@ -42,6 +45,10 @@
         android:name="home.samples.shoponline.ui.product.ProductFragment"
         tools:layout="@layout/fragment_product">
 
+        <argument
+            android:name="id"
+            android:defaultValue=""
+            app:argType="string" />
 
     </fragment>
 

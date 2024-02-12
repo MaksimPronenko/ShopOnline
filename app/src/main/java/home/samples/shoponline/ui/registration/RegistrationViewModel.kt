@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-
 private const val TAG = "RegistrationVM"
 
 class RegistrationViewModel(

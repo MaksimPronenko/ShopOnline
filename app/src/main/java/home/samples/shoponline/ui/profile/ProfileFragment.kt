@@ -1,23 +1,22 @@
 package home.samples.shoponline.ui.profile
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import home.samples.shoponline.R
-import home.samples.shoponline.ui.registration.RegistrationVMState
-import home.samples.shoponline.ui.registration.RegistrationViewModel
-import home.samples.shoponline.ui.registration.RegistrationViewModelFactory
+import home.samples.shoponline.databinding.FragmentProfileBinding
+import home.samples.shoponline.ui.ViewModelState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,92 +25,26 @@ private const val TAG = "ProfileFragment"
 class ProfileFragment : Fragment() {
 
     @Inject
-    lateinit var registrationViewModelFactory: RegistrationViewModelFactory
-    private val viewModel: RegistrationViewModel by viewModels { registrationViewModelFactory }
+    lateinit var profileViewModelFactory: ProfileViewModelFactory
+    private val viewModel: ProfileViewModel by viewModels { profileViewModelFactory }
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val bottomNavigation: BottomNavigationView? = activity?.findViewById(R.id.bottom_navigation)
+        if (bottomNavigation != null) bottomNavigation.isGone = false
+
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d(home.samples.shoponline.ui.registration.TAG, "Функция onViewCreated() запущена")
-
-        binding.emailEditText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && viewModel.emailState == null) {
-                viewModel.email = binding.emailEditText.text.toString()
-                viewModel.handleEnteredEmail()
-            }
-        }
-
-        binding.emailEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                Log.d(
-                    home.samples.shoponline.ui.registration.TAG,
-                    "emailEditText - afterTextChanged(s) сработала. s = $s"
-                )
-                if (viewModel.emailState != null) {
-                    viewModel.email = s.toString()
-                    viewModel.handleEnteredEmail()
-                }
-            }
-        })
-
-        binding.passwordEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                Log.d(
-                    home.samples.shoponline.ui.registration.TAG,
-                    "passwordEditText - afterTextChanged(s) сработала. s = $s"
-                )
-                if (viewModel.passwordState != null) {
-                    viewModel.password = s.toString()
-                    viewModel.handleEnteredPassword()
-                }
-            }
-        })
-
-        binding.loginButton.setOnClickListener {
-            viewModel.password = binding.passwordEditText.text.toString()
-            viewModel.handleEnteredPassword()
-            binding.emailEditText.clearFocus()
-            binding.passwordEditText.clearFocus()
-            viewModel.login()
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loginResult.collect { result ->
-                    // result = true - это ошибка входа
-                    if (result) {
-//                        Toast.makeText(
-//                            requireContext(),
-//                            getText(R.string.registration_error),
-//                            Toast.LENGTH_LONG
-//                        ).show()
-                    } else {
-                        findNavController().navigate(
-                            R.id.action_LoginFragment_to_CafeFragment
-                        )
-                    }
-                }
-            }
-        }
+        Log.d(TAG, "Функция onViewCreated() запущена")
 
         statesProcessing()
     }
@@ -122,34 +55,19 @@ class ProfileFragment : Fragment() {
                 viewModel.state
                     .collect { state ->
                         when (state) {
-                            is RegistrationVMState.WorkingState -> {
-                                binding.loginButton.isEnabled = true
-                                binding.emailLayout.boxBackgroundColor
-                                emailFieldRefresh(state.emailState ?: true)
-                                passwordFieldRefresh(state.passwordState ?: true)
+                            ViewModelState.Loading -> {
+                                binding.progress.isVisible = true
                             }
-
-                            RegistrationVMState.LoginProcess -> {
-                                binding.loginButton.isEnabled = false
+                            ViewModelState.Loaded -> {
+                                binding.progress.isVisible = false
+                            }
+                            ViewModelState.Error -> {
+                                binding.progress.isVisible = false
                             }
                         }
                     }
             }
         }
-    }
-
-    private fun emailFieldRefresh(state: Boolean) {
-        if (state) binding.emailLayout.boxBackgroundColor =
-            requireContext().getColor(R.color.transparent)
-        else binding.emailLayout.boxBackgroundColor =
-            requireContext().getColor(R.color.error_background)
-    }
-
-    private fun passwordFieldRefresh(state: Boolean) {
-        if (state) binding.passwordLayout.boxBackgroundColor =
-            requireContext().getColor(R.color.transparent)
-        else binding.passwordLayout.boxBackgroundColor =
-            requireContext().getColor(R.color.error_background)
     }
 
     override fun onDestroyView() {
