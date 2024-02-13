@@ -1,6 +1,10 @@
 package home.samples.shoponline.data
 
 import androidx.room.*
+import home.samples.shoponline.models.ImageTable
+import home.samples.shoponline.models.ProductDataTable
+import home.samples.shoponline.models.ProductTable
+import home.samples.shoponline.models.TagTable
 import home.samples.shoponline.models.UserTable
 
 @Dao
@@ -13,6 +17,22 @@ interface ShopDao {
     // Запрос на добавление нового пользователя
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addUserTable(userTable: UserTable)
+
+    // Запрос на добавление новой записи данных товара
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addProductDataTable(productDataTable: ProductDataTable)
+
+    // Запрос на добавление новой записи тегов товара
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addTagTable(tagTable: TagTable)
+
+    // Запрос на добавление новой записи изображений товара
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addImageTable(imageTable: ImageTable)
+
+    // Запрос на получение данных товара ProductTable по id
+    @Query("SELECT * FROM product_data_table WHERE id LIKE :id")
+    suspend fun getProductTable(id: String): ProductTable?
 
 /*    // Запрос на добавление новой записи любимого фильма
     @Insert(onConflict = OnConflictStrategy.REPLACE)

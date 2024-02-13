@@ -1,8 +1,11 @@
 package home.samples.shoponline
 
 import android.app.Application
+import android.content.Context
+import android.net.Uri
 import androidx.room.Room
 import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.qualifiers.ApplicationContext
 import home.samples.shoponline.data.AppDatabase
 import javax.inject.Inject
 

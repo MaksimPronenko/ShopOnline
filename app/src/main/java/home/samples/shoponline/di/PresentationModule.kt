@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import home.samples.shoponline.App
 import home.samples.shoponline.data.Repository
 import home.samples.shoponline.ui.catalog.CatalogViewModel
 import home.samples.shoponline.ui.catalog.CatalogViewModelFactory
@@ -15,6 +16,7 @@ import home.samples.shoponline.ui.profile.ProfileViewModel
 import home.samples.shoponline.ui.profile.ProfileViewModelFactory
 import home.samples.shoponline.ui.registration.RegistrationViewModel
 import home.samples.shoponline.ui.registration.RegistrationViewModelFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -34,19 +36,19 @@ class PresentationModule {
     }
 
     @Provides
-//    @Singleton
+    @Singleton
     fun provideCatalogViewModel(
-        repository: Repository
-//        application: App
+        repository: Repository,
+        application: App
     ): CatalogViewModel {
         return CatalogViewModel(
-            repository
-//            application
+            repository,
+            application
         )
     }
 
     @Provides
-//    @Singleton
+    @Singleton
     fun provideCatalogViewModelFactory(catalogViewModel: CatalogViewModel): CatalogViewModelFactory {
         return CatalogViewModelFactory(catalogViewModel)
     }

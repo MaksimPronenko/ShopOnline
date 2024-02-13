@@ -53,10 +53,7 @@ class ProductAdapter(
                 rating.text = item.feedback.rating.toString()
                 val feedbackCountText = "(${item.feedback.count})"
                 feedbackCount.text = feedbackCountText
-//                val uri = Uri.parse("android.resource://home.samples.shoponline/res/drawable/image_name")
-//                val res: Resources = context.getResources()
-//                val resUri: Uri = getUriToResource(res, "dra")
-                val uri = Uri.parse("android.resource://"+context.packageName +"/drawable/product_1_image_1")
+                val uri = Uri.parse("uriString")
                 Glide
                     .with(image.context)
                     .load(uri)

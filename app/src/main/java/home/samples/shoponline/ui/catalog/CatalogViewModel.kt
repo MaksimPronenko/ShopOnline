@@ -1,8 +1,11 @@
 package home.samples.shoponline.ui.catalog
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import home.samples.shoponline.App
 import home.samples.shoponline.data.Repository
 import home.samples.shoponline.models.Product
 import home.samples.shoponline.models.ShopData
@@ -16,11 +19,13 @@ import kotlinx.coroutines.launch
 private const val TAG = "CatalogVM"
 
 class CatalogViewModel(
-    private val repository: Repository
+    private val repository: Repository,
+    application: App
 ) : ViewModel() {
     private val _state = MutableStateFlow<ViewModelState>(ViewModelState.Loading)
     val state = _state.asStateFlow()
 
+    private var imagesURIStrigs: List<String> = emptyList()
     private var loadingDataResult: ShopData? = null
     private var filteredAndSortedProducts: List<Product> = emptyList()
     private val _productsFlow = MutableStateFlow<List<Product>>(emptyList())
@@ -29,6 +34,7 @@ class CatalogViewModel(
     private var chosenSortingType: Int = 0
 
     init {
+        imagesURIStrigs = createImagesURIStrigsList(application.applicationContext)
         loadCatalogData()
     }
 
@@ -78,5 +84,14 @@ class CatalogViewModel(
             else -> filteredByProductType.sortedByDescending { it.feedback.rating }
         }
         return sortedBySortingType
+    }
+
+    private fun createImagesURIStrigsList(context: Context): List<String> {
+        val imagesURIStrigs: MutableList<String> = mutableListOf()
+        for(i in 0..5) {
+            val uri = Uri.parse("android.resource://" + context.packageName + "/drawable/product_image_$i")
+            imagesURIStrigs.add(i, uri.toString())
+        }
+        return imagesURIStrigs.toList()
     }
 }
