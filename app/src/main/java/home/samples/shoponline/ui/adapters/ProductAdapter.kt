@@ -10,17 +10,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import home.samples.shoponline.databinding.CatalogItemBinding
-import home.samples.shoponline.models.Product
+import home.samples.shoponline.models.ProductTable
 
 
 class ProductAdapter(
     val context: Context,
     private val onItemClick: (String) -> Unit
 ) : RecyclerView.Adapter<CatalogViewHolder>() {
-    private var data: List<Product> = emptyList()
+    private var data: List<ProductTable> = emptyList()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(data: List<Product>) {
+    fun setData(data: List<ProductTable>) {
         this.data = data
         notifyDataSetChanged()
     }
@@ -41,19 +41,19 @@ class ProductAdapter(
         val item = data.getOrNull(position)
         with(holder.binding) {
             if (item != null) {
-                val oldPriceText = SpannableString("${item.price.price} ${item.price.unit}")
+                val oldPriceText = SpannableString("${item.productDataTable.price} ${item.productDataTable.unit}")
                 oldPriceText.setSpan(StrikethroughSpan(), 0, oldPriceText.length, 0)
                 oldPrice.text = oldPriceText
-                val newPriceText = "${item.price.priceWithDiscount} ${item.price.unit}"
+                val newPriceText = "${item.productDataTable.priceWithDiscount} ${item.productDataTable.unit}"
                 newPrice.text = newPriceText
-                val priceDiscountText = "-${item.price.discount}%"
+                val priceDiscountText = "-${item.productDataTable.discount}%"
                 priceDiscount.text = priceDiscountText
-                productTitle.text = item.title
-                productSubtitle.text = item.subtitle
-                rating.text = item.feedback.rating.toString()
-                val feedbackCountText = "(${item.feedback.count})"
+                productTitle.text = item.productDataTable.title
+                productSubtitle.text = item.productDataTable.subtitle
+                rating.text = item.productDataTable.rating.toString()
+                val feedbackCountText = "(${item.productDataTable.feedbackCount})"
                 feedbackCount.text = feedbackCountText
-                val uri = Uri.parse("uriString")
+                val uri = Uri.parse(item.images[0].imageURIString)
                 Glide
                     .with(image.context)
                     .load(uri)
@@ -62,7 +62,7 @@ class ProductAdapter(
         }
         holder.binding.root.setOnClickListener {
             if (item != null) {
-                onItemClick(item.id)
+                onItemClick(item.productDataTable.id)
             }
         }
     }

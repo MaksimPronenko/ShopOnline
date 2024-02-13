@@ -17,5 +17,11 @@ class ProductTable(
         parentColumn = "id",
         entityColumn = "id"
     )
+    val info: List<InfoPartTable>,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id"
+    )
     val images: List<ImageTable>
 )

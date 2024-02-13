@@ -28,9 +28,5 @@ data class ProductDataTable(
     @ColumnInfo(name = "available")
     var available: Int,
     @ColumnInfo(name = "description")
-    val description: String,
-    @ColumnInfo(name = "info_part_title")
-    val infoPartTitle: String,
-    @ColumnInfo(name = "info_part_value")
-    val infoPartValue: String
+    val description: String
 )

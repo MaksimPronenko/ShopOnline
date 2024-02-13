@@ -3,6 +3,7 @@ package home.samples.shoponline.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import home.samples.shoponline.models.ImageTable
+import home.samples.shoponline.models.InfoPartTable
 import home.samples.shoponline.models.ProductDataTable
 import home.samples.shoponline.models.TagTable
 import home.samples.shoponline.models.UserTable
@@ -12,6 +13,7 @@ import home.samples.shoponline.models.UserTable
         UserTable::class,
         ProductDataTable::class,
         TagTable::class,
+        InfoPartTable::class,
         ImageTable::class
     ], version = 2
 )
