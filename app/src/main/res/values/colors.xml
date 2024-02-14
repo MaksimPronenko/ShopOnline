@@ -4,6 +4,7 @@
     <color name="grey_menu_icon">#FF333333</color>
     <color name="grey_menu_text">#FF3E3E3E</color>
     <color name="grey_text">#FFA0A1A3</color>
+    <color name="grey_circle">#FFDEDEDE</color>
     <color name="grey_background">#FFF8F8F8</color>
     <color name="grey_border">#FFE8E9EC</color>
     <color name="white">#FFFFFFFF</color>

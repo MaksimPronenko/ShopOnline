@@ -51,7 +51,6 @@ class CatalogViewModel(
 
     init {
         imagesURIStrigs = createImagesURIStrigsList(application.applicationContext)
-        loadCatalogData()
     }
 
     fun filterProducts(productType: Int) {
@@ -74,14 +73,19 @@ class CatalogViewModel(
             Log.d(TAG, loadingDataResult.toString())
 
             if (loadingDataResult != null) {
+                Log.d(TAG, "loadingDataResult.items.size = ${loadingDataResult!!.items.size}")
                 filteredAndSortedProducts = filterProducts()
+                Log.d(TAG, "filteredAndSortedProducts.size = ${filteredAndSortedProducts.size}")
+                filteredAndSortedProductTables = mutableListOf()
                 filteredAndSortedProducts.forEach {
+                    Log.d(TAG, "Добавили ProductTable")
                     filteredAndSortedProductTables.add(
                         convertProductToProductTable(it)
                     )
                 }
                 _state.value = ViewModelState.Loaded
                 Log.d(TAG, "ViewModelState.Loaded")
+                Log.d(TAG, "filteredAndSortedProductTables.size = ${filteredAndSortedProductTables.size}")
                 _productsFlow.value = filteredAndSortedProductTables.toList()
             } else {
                 _state.value = ViewModelState.Error

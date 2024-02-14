@@ -41,6 +41,13 @@ class ProductAdapter(
         val item = data.getOrNull(position)
         with(holder.binding) {
             if (item != null) {
+                val productImageAdapter = ImageAdapter(context = context)
+                this.productImagePager.adapter = productImageAdapter
+                val productImages: MutableList<String> = mutableListOf()
+                item.images.forEach {
+                    productImages.add(it.imageURIString)
+                }
+                productImageAdapter.setData(productImages.toList())
                 val oldPriceText = SpannableString("${item.productDataTable.price} ${item.productDataTable.unit}")
                 oldPriceText.setSpan(StrikethroughSpan(), 0, oldPriceText.length, 0)
                 oldPrice.text = oldPriceText
@@ -53,11 +60,6 @@ class ProductAdapter(
                 rating.text = item.productDataTable.rating.toString()
                 val feedbackCountText = "(${item.productDataTable.feedbackCount})"
                 feedbackCount.text = feedbackCountText
-                val uri = Uri.parse(item.images[0].imageURIString)
-                Glide
-                    .with(image.context)
-                    .load(uri)
-                    .into(image)
             }
         }
         holder.binding.root.setOnClickListener {

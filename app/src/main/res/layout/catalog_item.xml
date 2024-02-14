@@ -5,17 +5,16 @@
     android:layout_width="168dp"
     android:layout_height="287dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/image"
-        android:layout_width="0dp"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/product_image_pager"
+        android:layout_width="match_parent"
         android:layout_height="144dp"
-        android:scaleType="centerCrop"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/customRoundedImageView"
-        app:srcCompat="@drawable/ic_launcher_background"
-        tools:ignore="ImageContrastCheck" />
+        tools:listitem="@layout/pager_image_item" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -23,9 +22,9 @@
         android:layout_marginTop="6dp"
         android:layout_marginEnd="6dp"
         android:src="@drawable/heart_empty"
-        app:layout_constraintEnd_toEndOf="@id/image"
-        app:layout_constraintTop_toTopOf="@id/image"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintEnd_toEndOf="@id/product_image_pager"
+        app:layout_constraintTop_toTopOf="@id/product_image_pager"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <TextView
         android:id="@+id/old_price"
@@ -38,7 +37,7 @@
         android:textColor="@color/grey_text"
         android:textSize="9sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/product_image_pager"
         tools:ignore="SmallSp,TextContrastCheck"
         tools:text="@tools:sample/cities" />
 
@@ -112,12 +111,12 @@
         android:id="@+id/star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
         android:src="@drawable/star"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_subtitle"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
 
     <TextView
@@ -149,13 +148,14 @@
         app:layout_constraintBottom_toBottomOf="@id/rating"
         tools:ignore="SmallSp,TextContrastCheck"
         tools:text="@tools:sample/cities" />
-    
+
     <androidx.constraintlayout.utils.widget.ImageFilterButton
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:background="@drawable/button_pink_background"
+        android:src="@drawable/plus_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/plus_white"
-        android:background="@drawable/button_pink_background" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
