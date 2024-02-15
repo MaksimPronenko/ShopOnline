@@ -173,8 +173,7 @@ class RegistrationFragment : Fragment() {
                 viewModel.registrationResult.collect { result ->
                     if (result) {
                         findNavController().navigate(
-                            R.id.action_RegistrationFragment_to_MainFragment
-//                            R.id.action_RegistrationFragment_to_CatalogFragment
+                            R.id.action_RegistrationFragment_to_CatalogFragment
                         )
                     } else {
                         findNavController().navigate(
