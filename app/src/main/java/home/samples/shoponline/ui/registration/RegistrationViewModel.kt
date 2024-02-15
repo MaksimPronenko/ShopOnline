@@ -21,9 +21,9 @@ class RegistrationViewModel(
 ) : ViewModel() {
     private val _state = MutableStateFlow<RegistrationVMState>(
         RegistrationVMState.WorkingState(
-            firstNameState = true,
-            surnameState = true,
-            phoneState = true
+            firstNameState = null,
+            surnameState = null,
+            phoneState = null
         )
     )
     val state = _state.asStateFlow()
@@ -40,6 +40,8 @@ class RegistrationViewModel(
 
     private val _registrationResult = Channel<Boolean>()
     val registrationResult = _registrationResult.receiveAsFlow()
+    private val _buttonStateChannel = Channel<Boolean>()
+    val buttonStateChannel = _buttonStateChannel.receiveAsFlow()
 
     fun register() {
         // Эта функция может быть запущена, только если значения во всех полях ввода прошли валидацию.
@@ -64,7 +66,7 @@ class RegistrationViewModel(
 
             _state.value =
                 RegistrationVMState.WorkingState(firstNameState, surnameState, phoneNumberState)
-            Log.d(TAG, "RegistrationVMState.WorkingState")
+            Log.d(TAG, "RegistrationVMState.WorkingState($firstNameState, $surnameState, $phoneNumberState)")
             _registrationResult.send(isAlreadyRegistered)
         }
     }
@@ -85,7 +87,8 @@ class RegistrationViewModel(
         refreshWorkingState()
     }
 
-    fun handleEnteredPhoneNumber() {
+    fun handleEnteredPhoneNumber(enteredPhoneNumber: String) {
+        phoneNumber = enteredPhoneNumber
         phoneNumberState = receivedDigits.length == 10
         Log.d(TAG, "handleEnteredPhoneNumber(): phoneNumberState = $phoneNumberState")
         refreshWorkingState()
@@ -102,6 +105,9 @@ class RegistrationViewModel(
         viewModelScope.launch {
             _state.value =
                 RegistrationVMState.WorkingState(firstNameState, surnameState, phoneNumberState)
+            _buttonStateChannel.send(
+                element = firstNameState ?: false && surnameState ?: false && phoneNumberState ?: false
+            )
         }
     }
 }

@@ -159,7 +159,9 @@ class RegistrationFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 Log.d(TAG, "phoneNumberEditText - afterTextChanged(s) сработала. s = $s")
-                viewModel.handleEnteredPhoneNumber()
+                viewModel.handleEnteredPhoneNumber(
+                    enteredPhoneNumber = "+7${viewModel.receivedDigits}"
+                )
                 binding.phoneNumberLayout.isEndIconVisible = !s.isNullOrEmpty()
             }
         })
@@ -168,6 +170,11 @@ class RegistrationFragment : Fragment() {
             viewModel.register()
         }
 
+        channelsProcessing()
+        statesProcessing()
+    }
+
+    private fun channelsProcessing() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.registrationResult.collect { result ->
@@ -181,10 +188,12 @@ class RegistrationFragment : Fragment() {
                         )
                     }
                 }
+                viewModel.buttonStateChannel.collect { state ->
+                    Log.d(TAG, "buttonStateChannel.collect state = $state")
+                    buttonStateRefresh(state)
+                }
             }
         }
-
-        statesProcessing()
     }
 
     private fun statesProcessing() {
@@ -194,16 +203,19 @@ class RegistrationFragment : Fragment() {
                     .collect { state ->
                         when (state) {
                             is RegistrationVMState.WorkingState -> {
-                                binding.registerButton.isEnabled =
-                                    ((state.firstNameState ?: true) && (state.surnameState
-                                        ?: true) && (state.phoneState ?: true))
-                                firstnameFieldRefresh(state.firstNameState ?: true)
-                                surnameFieldRefresh(state.surnameState ?: true)
-                                phoneNumberFieldRefresh(state.phoneState ?: true)
+                                Log.d(TAG, "RegistrationVMState.WorkingState(${state.firstNameState}, ${state.surnameState}, ${state.phoneState})")
+                                buttonStateRefresh(
+                                    state = state.firstNameState ?: false &&
+                                            state.surnameState ?: false &&
+                                            state.phoneState ?: false
+                                )
+                                firstnameFieldRefresh(state = state.firstNameState ?: true)
+                                surnameFieldRefresh(state = state.surnameState ?: true)
+                                phoneNumberFieldRefresh(state = state.phoneState ?: true)
                             }
 
                             RegistrationVMState.RegistrationProcess -> {
-                                binding.registerButton.isEnabled = false
+                                buttonStateRefresh(state = false)
                             }
                         }
                     }
@@ -230,6 +242,11 @@ class RegistrationFragment : Fragment() {
             requireContext().getColor(R.color.grey_background)
         else binding.phoneNumberLayout.boxBackgroundColor =
             requireContext().getColor(R.color.error_background)
+    }
+
+    private fun buttonStateRefresh(state: Boolean) {
+        Log.d(TAG, "buttonStateRefresh = $state")
+        binding.registerButton.isEnabled = state
     }
 
     override fun onDestroyView() {
