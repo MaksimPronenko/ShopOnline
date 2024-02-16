@@ -12,9 +12,9 @@
     </style>
 
     <style name="ShopInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
-        <item name="android:textColorHint">@color/cyan</item>
         <item name="boxBackgroundColor">@color/grey_background</item>
         <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 
     <style name="customRoundedImageView" parent="">
