@@ -26,9 +26,9 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/loyalty_program_string_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registration_fragment_title">
+        app:layout_constraintTop_toBottomOf="@id/registration_fragment_title"
+        app:layout_constraintVertical_bias="0.35">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/first_name_layout"
@@ -40,6 +40,8 @@
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
+            app:endIconDrawable="@drawable/cross_x"
+            app:endIconMode="clear_text"
             app:errorEnabled="false"
             app:hintEnabled="false">
 
@@ -51,12 +53,11 @@
                 android:hint="@string/first_name"
                 android:inputType="textEmailAddress"
                 android:paddingStart="16dp"
-                android:paddingEnd="8dp"
                 android:paddingTop="15dp"
+                android:paddingEnd="8dp"
                 android:paddingBottom="16dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_text"
-                android:drawableEnd="@drawable/cross_x"
                 android:textSize="16sp"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
 
@@ -73,6 +74,8 @@
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
+            app:endIconDrawable="@drawable/cross_x"
+            app:endIconMode="clear_text"
             app:errorEnabled="false"
             app:hintEnabled="false">
 
@@ -84,10 +87,9 @@
                 android:hint="@string/surname"
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
-                android:paddingEnd="8dp"
                 android:paddingTop="15dp"
+                android:paddingEnd="8dp"
                 android:paddingBottom="16dp"
-                android:drawableEnd="@drawable/cross_x"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_text"
                 android:textSize="16sp"
@@ -102,34 +104,34 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:hint="@string/phone_number"
+            android:textColorHint="@color/grey_text"
             app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusTopEnd="8dp"
             app:boxCornerRadiusTopStart="8dp"
+            app:endIconDrawable="@drawable/cross_x"
+            app:endIconMode="clear_text"
             app:errorEnabled="false"
             app:placeholderText="@string/phone_number_mask_short"
             app:placeholderTextAppearance="@style/Regular.16"
             app:placeholderTextColor="@color/black"
             app:prefixText="@string/phone_number_prefix"
             app:prefixTextAppearance="@style/Regular.16"
-            app:prefixTextColor="@color/black"
-            app:hintEnabled="false">
+            app:prefixTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_number_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_display_regular"
-                android:hint="@string/phone_number"
                 android:inputType="phone"
                 android:maxLength="18"
                 android:paddingStart="16dp"
-                android:paddingEnd="8dp"
                 android:paddingTop="15dp"
-                android:drawableEnd="@drawable/cross_x"
+                android:paddingEnd="8dp"
                 android:paddingBottom="16dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/grey_text"
                 android:textSize="16sp"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize,DuplicateSpeakableTextCheck" />
 
@@ -142,8 +144,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:enabled="false"
             android:background="@drawable/button_rounded_8"
+            android:enabled="false"
             android:padding="13dp"
             android:text="@string/enter"
             tools:ignore="VisualLintButtonSize" />

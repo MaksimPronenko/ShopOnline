@@ -50,7 +50,8 @@ class CatalogFragment : Fragment() {
 
         productAdapter = ProductAdapter(
             context = requireContext(),
-            onItemClick = { id -> onItemClick(id) }
+            onItemClick = { id -> onItemClick(id) },
+            addToFavorites = { id, operation -> viewModel.addOrRemoveFavourite(id, operation) }
         )
     }
 
@@ -101,7 +102,6 @@ class CatalogFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                val type = parent?.getItemAtPosition(position).toString()
                 Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_LONG).show()
                 viewModel.sortProducts(position)
             }
@@ -149,7 +149,19 @@ class CatalogFragment : Fragment() {
             }
         }
 
+        channelProcessing()
         statesProcessing()
+    }
+
+    private fun channelProcessing() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.productsChannel.collect { productList ->
+                    Log.d(TAG, "productsChannel.collect Product = $productList")
+                    productAdapter.setData(productList)
+                }
+            }
+        }
     }
 
     private fun statesProcessing() {
@@ -165,8 +177,8 @@ class CatalogFragment : Fragment() {
 
                             ViewModelState.Loaded -> {
                                 binding.progress.isVisible = false
-                                viewModel.productsFlow.onEach { product ->
-                                    productAdapter.setData(product)
+                                viewModel.productsFlow.onEach { productList ->
+                                    productAdapter.setData(productList)
                                 }.launchIn(viewLifecycleOwner.lifecycleScope)
                                 binding.catalogRecycler.isVisible = true
                                 refreshChipGroup()

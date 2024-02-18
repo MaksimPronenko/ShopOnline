@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -61,7 +62,6 @@ class RegistrationFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 Log.d(TAG, "firstNameEditText - afterTextChanged(s) сработала. s = $s")
                 viewModel.handleEnteredFirstName(s.toString())
-                binding.firstNameLayout.isEndIconVisible = !s.isNullOrEmpty()
             }
         })
 
@@ -77,13 +77,17 @@ class RegistrationFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 Log.d(TAG, "surnameEditText - afterTextChanged(s) сработала. s = $s")
                 viewModel.handleEnteredSurname(s.toString())
-                binding.surnameLayout.isEndIconVisible = !s.isNullOrEmpty()
             }
         })
 
         binding.phoneNumberLayout.setEndIconOnClickListener {
             binding.phoneNumberEditText.setText("")
         }
+
+        binding.phoneNumberEditText.onFocusChangeListener =
+            OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) binding.phoneNumberLayout.hint = ""
+            }
 
         binding.phoneNumberEditText.addTextChangedListener(object : TextWatcher {
             private var mSelfChange = false
@@ -154,6 +158,7 @@ class RegistrationFragment : Fragment() {
                 mSelfChange = true
                 binding.phoneNumberEditText.setText(resultStr)
                 binding.phoneNumberEditText.setSelection(cursorPosition)
+                binding.phoneNumberLayout.placeholderText = ""
                 mSelfChange = false
             }
 
@@ -162,7 +167,6 @@ class RegistrationFragment : Fragment() {
                 viewModel.handleEnteredPhoneNumber(
                     enteredPhoneNumber = "+7${viewModel.receivedDigits}"
                 )
-                binding.phoneNumberLayout.isEndIconVisible = !s.isNullOrEmpty()
             }
         })
 

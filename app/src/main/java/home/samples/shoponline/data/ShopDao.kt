@@ -1,6 +1,7 @@
 package home.samples.shoponline.data
 
 import androidx.room.*
+import home.samples.shoponline.models.FavouritesTable
 import home.samples.shoponline.models.ImageTable
 import home.samples.shoponline.models.ProductDataTable
 import home.samples.shoponline.models.ProductTable
@@ -33,6 +34,29 @@ interface ShopDao {
     // Запрос на получение данных товара ProductTable по id
     @Query("SELECT * FROM product_data_table WHERE id LIKE :id")
     suspend fun getProductTable(id: String): ProductTable?
+
+
+    @Query("SELECT * FROM product_data_table")
+    suspend fun getProductTableList(): List<ProductTable>
+
+    @Query("DELETE FROM product_data_table")
+    suspend fun removeProductDataTable()
+
+    @Query("DELETE FROM tag_table")
+    suspend fun removeTagTable()
+
+    @Query("DELETE FROM info_part_table")
+    suspend fun removeInfoPartTable()
+
+    @Query("SELECT * FROM favourites_table")
+    suspend fun getFavouritesTableList(): List<FavouritesTable>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addFavouritesTable(favouritesTable: FavouritesTable)
+
+    // Запрос на удаление фильма из списка просмотренных
+    @Query("DELETE FROM favourites_table WHERE id = :id")
+    suspend fun removeFavouritesTable(id: String)
 
 /*    // Запрос на добавление новой записи любимого фильма
     @Insert(onConflict = OnConflictStrategy.REPLACE)

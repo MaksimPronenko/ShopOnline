@@ -29,7 +29,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideRepository(dao: ShopDao): Repository {
-        return Repository(dao)
+    fun provideRepository(application: App, dao: ShopDao): Repository {
+        return Repository(application, dao)
     }
 }

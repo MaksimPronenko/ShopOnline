@@ -38,12 +38,10 @@ class PresentationModule {
     @Provides
     @Singleton
     fun provideCatalogViewModel(
-        repository: Repository,
-        application: App
+        repository: Repository
     ): CatalogViewModel {
         return CatalogViewModel(
-            repository,
-            application
+            repository
         )
     }
 

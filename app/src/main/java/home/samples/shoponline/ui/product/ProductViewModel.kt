@@ -22,18 +22,18 @@ class ProductViewModel(
         Log.d(TAG, "Функция login() запущена")
         viewModelScope.launch(Dispatchers.IO) {
             _state.value = ViewModelState.Loading
-            Log.d(TAG, "ViewModelState.Loading")
-
-            val loadingDataResult = repository.getShopData()
-            Log.d(TAG, loadingDataResult.toString())
-
-            if (loadingDataResult != null) {
+//            Log.d(TAG, "ViewModelState.Loading")
+//
+//            val loadingDataResult = repository.getShopData()
+//            Log.d(TAG, loadingDataResult.toString())
+//
+//            if (loadingDataResult != null) {
                 _state.value = ViewModelState.Loaded
-                Log.d(TAG, "ViewModelState.Loaded")
-            } else {
-                _state.value = ViewModelState.Error
-                Log.d(TAG, "ViewModelState.Error")
-            }
+//                Log.d(TAG, "ViewModelState.Loaded")
+//            } else {
+//                _state.value = ViewModelState.Error
+//                Log.d(TAG, "ViewModelState.Error")
+//            }
         }
     }
 }
