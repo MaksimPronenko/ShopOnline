@@ -17,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import home.samples.shoponline.R
 import home.samples.shoponline.databinding.FragmentProductBinding
 import home.samples.shoponline.ui.ViewModelState
+import home.samples.shoponline.ui.adapters.ProductAdapter
+import home.samples.shoponline.utils.ARG_ID
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,6 +33,11 @@ class ProductFragment : Fragment() {
 
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.id = arguments?.getString(ARG_ID) ?: ""
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

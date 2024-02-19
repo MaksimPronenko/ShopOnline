@@ -47,7 +47,6 @@ class CatalogFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         productAdapter = ProductAdapter(
             context = requireContext(),
             onItemClick = { id -> onItemClick(id) },

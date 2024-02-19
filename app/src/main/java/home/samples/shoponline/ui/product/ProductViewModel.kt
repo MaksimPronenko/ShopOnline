@@ -18,6 +18,8 @@ class ProductViewModel(
     private val _state = MutableStateFlow<ViewModelState>(ViewModelState.Loading)
     val state = _state.asStateFlow()
 
+    var id: String = ""
+
     fun loadProductData() {
         Log.d(TAG, "Функция login() запущена")
         viewModelScope.launch(Dispatchers.IO) {
