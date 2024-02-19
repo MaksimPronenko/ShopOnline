@@ -58,6 +58,10 @@ interface ShopDao {
     @Query("DELETE FROM favourites_table WHERE id = :id")
     suspend fun removeFavouritesTable(id: String)
 
+    // Запрос на проверку наличия записи данных фильма в БД
+    @Query("SELECT EXISTS (SELECT id FROM favourites_table WHERE id LIKE :id)")
+    suspend fun isProductFavourite(id: String): Boolean
+
 /*    // Запрос на добавление новой записи любимого фильма
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFilmTable(filmTable: FilmTable)

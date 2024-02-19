@@ -188,4 +188,15 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
             dao.removeFavouritesTable(id = id)
         }
     }
+
+    suspend fun getProductTable(id: String): ProductTableWithFavourites? {
+        val productTable: ProductTable? = dao.getProductTable(id)
+        return if(productTable != null) {
+            val favourite: Boolean = dao.isProductFavourite(id)
+            ProductTableWithFavourites(
+                productTable = productTable,
+                favourite = favourite
+            )
+        } else null
+    }
 }
