@@ -34,7 +34,7 @@
             android:layout_width="4dp"
             android:layout_height="4dp"
             app:tint="@color/pink"
-            android:src="@drawable/circle"
+            android:src="@drawable/circle_radius_2dp"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -43,7 +43,7 @@
             android:layout_height="4dp"
             android:layout_marginStart="2dp"
             app:tint="@color/grey_circle"
-            android:src="@drawable/circle"
+            android:src="@drawable/circle_radius_2dp"
             tools:ignore="ContentDescription" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
