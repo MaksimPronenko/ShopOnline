@@ -30,4 +30,7 @@
         <item>По уменьшению цены</item>
         <item>По возрастанию цены</item>
     </string-array>
+    <string name="description_title">Описание</string>
+    <string name="hide">Скрыть</string>
+    <string name="characteristics_title">Характеристики</string>
 </resources>
