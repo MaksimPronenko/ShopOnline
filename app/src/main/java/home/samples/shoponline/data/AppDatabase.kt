@@ -17,7 +17,7 @@ import home.samples.shoponline.models.UserTable
         InfoPartTable::class,
         ImageTable::class,
         FavouritesTable::class
-    ], version = 3
+    ], version = 4
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun shopDao(): ShopDao

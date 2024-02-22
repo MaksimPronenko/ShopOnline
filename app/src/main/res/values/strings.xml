@@ -32,5 +32,12 @@
     </string-array>
     <string name="description_title">Описание</string>
     <string name="hide">Скрыть</string>
+    <string name="detail">Подробнее</string>
     <string name="characteristics_title">Характеристики</string>
+    <string name="consist_title">Состав</string>
+    <string name="add_to_basket">Добавить в корзину</string>
+    <string name="available">Доступно для заказа</string>
+    <string name="piece_1">штука</string>
+    <string name="piece_2">штук</string>
+    <string name="piece_3">штуки</string>
 </resources>

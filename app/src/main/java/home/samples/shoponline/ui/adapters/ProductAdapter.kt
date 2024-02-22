@@ -2,17 +2,14 @@ package home.samples.shoponline.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.Uri
 import android.text.SpannableString
 import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import home.samples.shoponline.R
 import home.samples.shoponline.databinding.CatalogItemBinding
-import home.samples.shoponline.models.ProductTable
 import home.samples.shoponline.models.ProductTableWithFavourites
 
 

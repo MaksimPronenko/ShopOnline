@@ -146,7 +146,6 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/button_rounded_8"
             android:enabled="false"
-            android:padding="13dp"
             android:text="@string/enter"
             tools:ignore="VisualLintButtonSize" />
 

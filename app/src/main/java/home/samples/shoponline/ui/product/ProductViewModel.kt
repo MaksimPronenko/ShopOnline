@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import home.samples.shoponline.data.Repository
+import home.samples.shoponline.models.InfoPartTable
 import home.samples.shoponline.models.ProductTableWithFavourites
 import home.samples.shoponline.ui.ViewModelState
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +24,10 @@ class ProductViewModel(
 
     var id: String = ""
 
-    private var loadingDataResult: ProductTableWithFavourites? = null
+    var loadingDataResult: ProductTableWithFavourites? = null
+
+    private val _productInfoFlow = MutableStateFlow<List<InfoPartTable>>(emptyList())
+    val productInfoFlow = _productInfoFlow.asStateFlow()
 
     private val _favouriteChannel = Channel<Boolean>()
     val favouriteChannel = _favouriteChannel.receiveAsFlow()
