@@ -3,7 +3,7 @@ package home.samples.shoponline.models
 import androidx.room.Embedded
 import androidx.room.Relation
 
-class ProductTable(
+data class ProductTable(
     @Embedded
     val productDataTable: ProductDataTable,
 

@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "tag_table")
+@Entity(
+    tableName = "tag_table",
+    primaryKeys = ["id", "tag"]
+)
 data class TagTable(
-    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: String,
     @ColumnInfo(name = "tag")

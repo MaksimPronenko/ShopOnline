@@ -26,28 +26,28 @@ class ProductViewModel(
 
     var loadingDataResult: ProductTableWithFavourites? = null
 
-    private val _productInfoFlow = MutableStateFlow<List<InfoPartTable>>(emptyList())
-    val productInfoFlow = _productInfoFlow.asStateFlow()
+    private var isDiscriptionTextVisible = true
+    private var isIngredientsTextVisible = true
 
     private val _favouriteChannel = Channel<Boolean>()
     val favouriteChannel = _favouriteChannel.receiveAsFlow()
 
     private val _showHideDescriptionChannel = Channel<Boolean>()
-    val showHideDescriptionChannel = _favouriteChannel.receiveAsFlow()
+    val showHideDescriptionChannel = _showHideDescriptionChannel.receiveAsFlow()
+
+    private val _showHideIngredientsChannel = Channel<Boolean>()
+    val showHideIngredientsChannel = _showHideIngredientsChannel.receiveAsFlow()
 
     var ingredientsTextLinesCount = 0
-    private val _showHideIngredientsChannel = Channel<Boolean>()
-    val showHideIngredientsChannel = _favouriteChannel.receiveAsFlow()
 
-    init {
-        loadProductData()
-    }
-
-    private fun loadProductData() {
-        Log.d(TAG, "Функция loadProductData() запущена")
+    fun loadProductData(receivedId: String) {
+        id = receivedId
+        Log.d(TAG, "Функция loadProductData() запущена. receivedId = $receivedId")
         viewModelScope.launch(Dispatchers.IO) {
             _state.value = ViewModelState.Loading
+            Log.d(TAG, "ViewModelState.Loading")
             loadingDataResult = repository.getProductTable(id)
+            Log.d(TAG, "loadingDataResult = ${loadingDataResult.toString()}")
             if (loadingDataResult != null) {
                 _state.value = ViewModelState.Loaded
                 Log.d(TAG, "ViewModelState.Loaded")
@@ -60,17 +60,25 @@ class ProductViewModel(
 
     fun changeFavouriteStatus() {
         viewModelScope.launch(Dispatchers.IO) {
-            val currentFavouriteStatus = loadingDataResult!!.favourite
+            val currentFavouriteStatus = repository.getFavourites().contains(loadingDataResult!!.productTable.productDataTable.id)
             repository.addOrRemoveFavourite(id, !currentFavouriteStatus)
             _favouriteChannel.send(element = !currentFavouriteStatus)
         }
     }
 
     fun showHideDescription() {
-
+        Log.d(TAG, "showHideDescription()")
+        viewModelScope.launch(Dispatchers.IO) {
+            isDiscriptionTextVisible = !isDiscriptionTextVisible
+            _showHideDescriptionChannel.send(isDiscriptionTextVisible)
+        }
     }
 
     fun showHideIngredients() {
-
+        Log.d(TAG, "showHideIngredients()")
+        viewModelScope.launch(Dispatchers.IO) {
+            isIngredientsTextVisible = !isIngredientsTextVisible
+            _showHideIngredientsChannel.send(isIngredientsTextVisible)
+        }
     }
 }

@@ -3,21 +3,153 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/profile_fragment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/sf_pro_display_semibold"
-        android:text="@string/profile"
+        android:fontFamily="@font/sf_pro_display_medium"
+        android:text="@string/personal_account"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/user_button"
+        style="@style/ButtonBrownBorderlessHeight49"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="34dp"
+        android:drawableStart="@drawable/user"
+        android:drawablePadding="16dp"
+        android:paddingVertical="6.5dp"
+        android:paddingHorizontal="8dp"
+        android:drawableEnd="@drawable/exit"
+        android:gravity="start||top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_fragment_title"
+        tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:id="@+id/phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="7.5dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/grey_text"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/user_button"
+        app:layout_constraintStart_toStartOf="@id/user_button"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/us_phones" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/favourites_button"
+        style="@style/ButtonBrownBorderlessHeight49"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:drawableStart="@drawable/heart_profile"
+        android:drawablePadding="16dp"
+        android:paddingVertical="6.5dp"
+        android:paddingHorizontal="8dp"
+        android:drawableEnd="@drawable/arrow_right"
+        android:gravity="start||top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_button"
+        tools:text="@tools:sample/cities" />
+
+    <TextView
+        android:id="@+id/product_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="7.5dp"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textColor="@color/grey_text"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/favourites_button"
+        app:layout_constraintStart_toStartOf="@id/favourites_button"
+        tools:ignore="SmallSp,TextContrastCheck"
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/shops_button"
+        style="@style/ButtonBrownBorderlessHeight49"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/shop"
+        android:drawablePadding="16dp"
+        android:paddingHorizontal="8dp"
+        android:drawableEnd="@drawable/arrow_right"
+        android:gravity="start||center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/favourites_button"
+        tools:text="@tools:sample/cities" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/feedback_button"
+        style="@style/ButtonBrownBorderlessHeight49"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/feedback"
+        android:drawablePadding="16dp"
+        android:paddingHorizontal="8dp"
+        android:drawableEnd="@drawable/arrow_right"
+        android:gravity="start||center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shops_button"
+        tools:text="@tools:sample/cities" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/offer_button"
+        style="@style/ButtonBrownBorderlessHeight49"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/offer"
+        android:drawablePadding="16dp"
+        android:paddingHorizontal="8dp"
+        android:drawableEnd="@drawable/arrow_right"
+        android:gravity="start||center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/feedback_button"
+        tools:text="@tools:sample/cities" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/product_return_button"
+        style="@style/ButtonBrownBorderlessHeight49"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/product_return"
+        android:drawablePadding="16dp"
+        android:paddingHorizontal="8dp"
+        android:drawableEnd="@drawable/arrow_right"
+        android:gravity="start||center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/offer_button"
+        tools:text="@tools:sample/cities" />
 
     <ProgressBar
         android:id="@+id/progress"

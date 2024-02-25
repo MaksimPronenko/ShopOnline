@@ -13,6 +13,7 @@ data class Product(
     val tags: List<String>,
     var available: Int,
     val description: String,
+    val ingredients: String,
     val info: List<InfoPart>
 )
 

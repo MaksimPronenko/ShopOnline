@@ -54,7 +54,21 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
             productTableList = dao.getProductTableList()
             if (productTableList.isEmpty()) {
                 shopData = loadCatalogDataFromApi()
-                if (shopData != null) productTableList = convertShopDataToProductTableList(shopData)
+                if (shopData != null) {
+                    productTableList = convertShopDataToProductTableList(shopData)
+                    productTableList.forEach { productTable ->
+                        dao.addProductDataTable(productTable.productDataTable)
+                        productTable.tags.forEach { tagTable ->
+                            dao.addTagTable(tagTable)
+                        }
+                        productTable.info.forEach { infoPartTable ->
+                            dao.addInfoPartTable(infoPartTable)
+                        }
+                        productTable.images.forEach { imageTable ->
+                            dao.addImageTable(imageTable)
+                        }
+                    }
+                }
                 else return null
             }
         }
@@ -99,10 +113,11 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
         return favourites.toList()
     }
 
-    suspend fun clearCatalogData() {
+    private suspend fun clearCatalogData() {
         dao.removeProductDataTable()
         dao.removeTagTable()
         dao.removeInfoPartTable()
+        dao.removeImageTable()
     }
 
     private fun convertShopDataToProductTableList(shopData: ShopData): List<ProductTable> {
@@ -162,7 +177,8 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
                 feedbackCount = product.feedback.count,
                 rating = product.feedback.rating,
                 available = product.available,
-                description = product.description
+                description = product.description,
+                ingredients = product.ingredients
             ),
             tags = tags.toList(),
             info = info.toList(),

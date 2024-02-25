@@ -40,4 +40,8 @@
     <string name="piece_1">штука</string>
     <string name="piece_2">штук</string>
     <string name="piece_3">штуки</string>
+    <string name="feedback_1">отзыв</string>
+    <string name="feedback_2">отзыва</string>
+    <string name="feedback_3">отзывов</string>
+    <string name="personal_account">Личный кабинет</string>
 </resources>

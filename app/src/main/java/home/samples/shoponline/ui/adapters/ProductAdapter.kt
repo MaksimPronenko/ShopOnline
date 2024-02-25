@@ -42,7 +42,10 @@ class ProductAdapter(
         val item = data.getOrNull(position)
         with(holder.binding) {
             if (item != null) {
-                val productImageAdapter = ImageAdapter(context = context)
+                val productImageAdapter = ImageAdapter(
+                    context = context,
+                    onImageClick = { onItemClick(item.productTable.productDataTable.id) }
+                )
                 this.productImagePager.adapter = productImageAdapter
                 val productImages: MutableList<String> = mutableListOf()
                 item.productTable.images.forEach {

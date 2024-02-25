@@ -3,6 +3,7 @@ package home.samples.shoponline.data
 import androidx.room.*
 import home.samples.shoponline.models.FavouritesTable
 import home.samples.shoponline.models.ImageTable
+import home.samples.shoponline.models.InfoPartTable
 import home.samples.shoponline.models.ProductDataTable
 import home.samples.shoponline.models.ProductTable
 import home.samples.shoponline.models.TagTable
@@ -27,6 +28,10 @@ interface ShopDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTagTable(tagTable: TagTable)
 
+    // Запрос на добавление новой записи тегов товара
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addInfoPartTable(infoPartTable: InfoPartTable)
+
     // Запрос на добавление новой записи изображений товара
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addImageTable(imageTable: ImageTable)
@@ -47,6 +52,9 @@ interface ShopDao {
 
     @Query("DELETE FROM info_part_table")
     suspend fun removeInfoPartTable()
+
+    @Query("DELETE FROM image_table")
+    suspend fun removeImageTable()
 
     @Query("SELECT * FROM favourites_table")
     suspend fun getFavouritesTableList(): List<FavouritesTable>

@@ -11,7 +11,8 @@ import home.samples.shoponline.R
 import home.samples.shoponline.databinding.PagerImageItemBinding
 
 class ImageAdapter(
-    val context: Context
+    val context: Context,
+    private val onImageClick: () -> Unit
 ) : RecyclerView.Adapter<ImageViewHolder>() {
     private var data: List<String> = emptyList()
 
@@ -54,6 +55,9 @@ class ImageAdapter(
                         circle0.setColorFilter(context.getColor(R.color.grey_circle))
                         circle1.setColorFilter(context.getColor(R.color.pink))
                     }
+                }
+                root.setOnClickListener {
+                    onImageClick()
                 }
             }
         }

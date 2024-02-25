@@ -52,7 +52,7 @@ class CatalogViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             _state.value = ViewModelState.Loading
             Log.d(TAG, "ViewModelState.Loading")
-
+            Log.d(TAG, "Запуск repository.getCatalogData($catalogFirstOpened)")
             loadingDataResult = repository.getCatalogData(catalogFirstOpened)
             Log.d(TAG, loadingDataResult.toString())
 

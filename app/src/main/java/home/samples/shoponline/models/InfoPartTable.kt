@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "info_part_table")
+@Entity(
+    tableName = "info_part_table",
+    primaryKeys = ["id", "title"]
+)
 data class InfoPartTable(
-    @PrimaryKey
     @ColumnInfo(name = "id")
     val id: String,
     @ColumnInfo(name = "title")

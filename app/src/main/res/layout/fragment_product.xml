@@ -32,7 +32,7 @@
 
     <ScrollView
         android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
@@ -50,7 +50,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/product_image_pager"
                 android:layout_width="match_parent"
-                android:layout_height="368dp"
+                android:layout_height="394dp"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="14dp"
@@ -81,43 +81,12 @@
                 app:layout_constraintStart_toStartOf="@id/product_image_pager"
                 tools:ignore="ContentDescription,ImageContrastCheck" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingHorizontal="2dp"
-                android:paddingVertical="2dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/product_image_pager">
-
-                <ImageView
-                    android:id="@+id/circle_0"
-                    android:layout_width="6dp"
-                    android:layout_height="6dp"
-                    android:src="@drawable/circle_radius_3dp"
-                    app:tint="@color/pink"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:id="@+id/circle_1"
-                    android:layout_width="6dp"
-                    android:layout_height="6dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/circle_radius_3dp"
-                    app:tint="@color/grey_circle"
-                    tools:ignore="ContentDescription,ImageContrastCheck" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:textAllCaps="true"
                 android:textColor="@color/grey_text"
@@ -312,12 +281,12 @@
                 android:drawableEnd="@drawable/arrow_right"
                 android:fontFamily="@font/sf_pro_display_medium"
                 android:paddingStart="9dp"
-                android:textAllCaps="true"
+                android:paddingEnd="8dp"
                 android:text="@string/description_title"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:paddingEnd="8dp"
-                android:textAlignment="textStart"
                 app:layout_constraintTop_toBottomOf="@id/description_title"
                 tools:text="@tools:sample/cities" />
 
@@ -331,19 +300,20 @@
                 android:text="@string/description_title"
                 android:textColor="@color/grey_menu_text"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/brand_button" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/hide_description_button"
-                android:layout_width="42dp"
+                android:layout_width="wrap_content"
                 android:layout_height="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/transparent"
                 android:fontFamily="@font/sf_pro_display_medium"
                 android:text="@string/hide"
+                android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textColor="@color/grey_text"
                 android:textSize="12sp"
@@ -366,11 +336,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/product_info_recycler"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
+                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -396,17 +366,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
+                app:layout_goneMarginBottom="24dp"
                 android:fontFamily="@font/sf_pro_display_regular"
                 android:textColor="@color/grey_menu_text"
                 android:textSize="12sp"
-                tools:text="@tools:sample/lorem/random"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/consist_title" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/consist_title"
+                app:layout_constraintBottom_toTopOf="@id/hide_ingredients_button"
+                tools:text="@tools:sample/lorem/random" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/hide_ingredients_button"
-                android:layout_width="42dp"
+                android:layout_width="wrap_content"
                 android:layout_height="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
@@ -414,12 +386,13 @@
                 android:background="@color/transparent"
                 android:fontFamily="@font/sf_pro_display_medium"
                 android:text="@string/hide"
+                android:textAlignment="textStart"
                 android:textAllCaps="false"
                 android:textColor="@color/grey_text"
                 android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ingredients"
-                app:layout_constraintBottom_toBottomOf="parent"
                 tools:ignore="TextSizeCheck,TouchTargetSizeCheck,TextContrastCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -432,18 +405,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_rounded_8"
         android:enabled="true"
-        android:gravity="center||end"
         android:paddingHorizontal="16dp"
+        android:text="@string/add_to_basket"
+        android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scroll_view"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/add_to_basket" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scroll_view" />
 
     <TextView
         android:id="@+id/new_price_in_button"
@@ -453,9 +425,9 @@
         android:fontFamily="@font/sf_pro_display_medium"
         android:textColor="@color/white"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/add_to_basket_button"
         app:layout_constraintStart_toStartOf="@id/add_to_basket_button"
         app:layout_constraintTop_toTopOf="@id/add_to_basket_button"
-        app:layout_constraintBottom_toBottomOf="@id/add_to_basket_button"
         tools:text="@tools:sample/cities" />
 
     <TextView
@@ -466,9 +438,9 @@
         android:fontFamily="@font/sf_pro_display_regular"
         android:textColor="@color/light_pink"
         android:textSize="10sp"
-        app:layout_constraintTop_toTopOf="@id/add_to_basket_button"
         app:layout_constraintBottom_toBottomOf="@id/add_to_basket_button"
         app:layout_constraintStart_toEndOf="@id/new_price_in_button"
+        app:layout_constraintTop_toTopOf="@id/add_to_basket_button"
         tools:ignore="SmallSp,TextContrastCheck"
         tools:text="@tools:sample/cities" />
 

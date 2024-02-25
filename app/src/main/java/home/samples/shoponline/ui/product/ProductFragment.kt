@@ -1,10 +1,13 @@
 package home.samples.shoponline.ui.product
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.StrikethroughSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -13,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import home.samples.shoponline.R
@@ -25,6 +29,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 private const val TAG = "ProductFragment"
 
@@ -44,7 +49,13 @@ class ProductFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.id = arguments?.getString(ARG_ID) ?: ""
+        val receivedId = arguments?.getString(ARG_ID) ?: ""
+        Log.d(
+            TAG,
+            "Функция onCreate() запущена. Получен id = $receivedId. viewModel.id = ${viewModel.id}"
+        )
+        if (receivedId != viewModel.id && receivedId.isNotBlank())
+            viewModel.loadProductData(receivedId)
         productImageAdapterBig = ImageAdapterBig(context = requireContext())
     }
 
@@ -65,11 +76,72 @@ class ProductFragment : Fragment() {
         binding.productImagePager.adapter = productImageAdapterBig
         binding.productInfoRecycler.adapter = productInfoAdapter
 
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.addToFavoritesButton.setOnClickListener {
             viewModel.changeFavouriteStatus()
         }
 
+        binding.hideDescriptionButton.setOnClickListener {
+            viewModel.showHideDescription()
+        }
+
+        binding.hideIngredientsButton.setOnClickListener {
+            viewModel.showHideIngredients()
+        }
+
+        binding.ingredients.viewTreeObserver.addOnGlobalLayoutListener(object :
+            OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                Log.d(TAG, "onGlobalLayout() binding.ingredients.lineCount = ${binding.ingredients.layout.lineCount}")
+                if (binding.ingredients.layout.lineCount >= 1) {
+                    viewModel.ingredientsTextLinesCount = binding.ingredients.layout.lineCount
+                    Log.d(
+                        TAG,
+                        "lines = ${viewModel.ingredientsTextLinesCount}"
+                    )
+                    binding.hideIngredientsButton.isGone = viewModel.ingredientsTextLinesCount <= 2
+                    binding.ingredients.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            }
+        })
+
+        channelProcessing()
         statesProcessing()
+    }
+
+    private fun channelProcessing() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favouriteChannel.collect {
+                    setFavoriteState(it)
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showHideDescriptionChannel.collect { isVisible ->
+                    Log.d(TAG, "Канал видимости описания = $isVisible")
+                    binding.brandButton.isGone = !isVisible
+                    binding.description.isGone = !isVisible
+                    binding.hideDescriptionButton.text =
+                        requireContext().getString(if (isVisible) R.string.hide else R.string.detail)
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showHideIngredientsChannel.collect { isVisible ->
+                    Log.d(TAG, "Канал видимости состава = $isVisible")
+                    binding.ingredients.maxLines =
+                        if (isVisible) binding.ingredients.lineCount else 2
+                    binding.hideIngredientsButton.text =
+                        requireContext().getString(if (isVisible) R.string.hide else R.string.detail)
+                }
+            }
+        }
     }
 
     private fun statesProcessing() {
@@ -80,12 +152,12 @@ class ProductFragment : Fragment() {
                         when (state) {
                             ViewModelState.Loading -> {
                                 binding.progress.isVisible = true
-                                binding.scrollView.isVisible = true
+                                binding.scrollView.isVisible = false
                             }
 
                             ViewModelState.Loaded -> {
                                 binding.progress.isVisible = false
-                                binding.scrollView.isVisible = false
+                                binding.scrollView.isVisible = true
                                 showProductData()
                             }
 
@@ -105,43 +177,79 @@ class ProductFragment : Fragment() {
         data.productTable.images.forEach {
             productImages.add(it.imageURIString)
         }
+        Log.d(TAG, "Загружаем в адаптер картинки = ${productImages.toList()}")
         productImageAdapterBig.setData(productImages.toList())
 
-        binding.addToFavoritesButton.setImageDrawable(
-            AppCompatResources.getDrawable(
-                requireContext(),
-                if (data.favourite) R.drawable.heart_filled else R.drawable.heart_empty
-            )
-        )
+        setFavoriteState(data.favourite)
 
+        Log.d(TAG, "Загружаем title = ${data.productTable.productDataTable.title}")
         binding.title.text = data.productTable.productDataTable.title
+
         binding.subtitle.text = data.productTable.productDataTable.subtitle
+
         binding.available.text = getAvailableText(data.productTable.productDataTable.available)
 
         setRatingStars(data.productTable.productDataTable.rating)
 
-        viewModel.productInfoFlow.onEach { productList ->
-            productInfoAdapter.setData(productList)
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        binding.rating.text = data.productTable.productDataTable.rating.toString()
 
-        binding.newPrice.text =
-            data.productTable.productDataTable.priceWithDiscount
-        binding.newPriceInButton.text =
-            data.productTable.productDataTable.priceWithDiscount
-        binding.oldPrice.text = data.productTable.productDataTable.price
-        binding.oldPrice.text = data.productTable.productDataTable.price
-        binding.priceDiscount.text = data.productTable.productDataTable.discount.toString()
+        binding.feedbackCount.text =
+            getFeedbackCountText(data.productTable.productDataTable.feedbackCount)
+
+        Log.d(TAG, "unit = ${data.productTable.productDataTable.unit}")
+        val newPriceText =
+            "${data.productTable.productDataTable.priceWithDiscount} ${data.productTable.productDataTable.unit}"
+        binding.newPrice.text = newPriceText
+        binding.newPriceInButton.text = newPriceText
+
+        val oldPriceText =
+            SpannableString("${data.productTable.productDataTable.price} ${data.productTable.productDataTable.unit}")
+        oldPriceText.setSpan(StrikethroughSpan(), 0, oldPriceText.length, 0)
+        binding.oldPrice.text = oldPriceText
+        binding.oldPriceInButton.text = oldPriceText
+
+        val priceDiscountText = "-${data.productTable.productDataTable.discount}%"
+        binding.priceDiscount.text = priceDiscountText
+
+        binding.brandButton.text = data.productTable.productDataTable.title
+
+        binding.description.text = data.productTable.productDataTable.description
+
+        productInfoAdapter.setData(data.productTable.info)
+
+        binding.ingredients.text = data.productTable.productDataTable.ingredients
     }
 
-    private fun getAvailableText(available: Int): String {
-        val part1 = requireContext().getString(R.string.available) + " $available "
-        val part2 = when (available % 10) {
-            1 -> requireContext().getString(R.string.piece_1)
-            in 2..4 -> requireContext().getString(R.string.piece_3)
-            else -> requireContext().getString(R.string.piece_2)
+    private fun setFavoriteState(state: Boolean) {
+        binding.addToFavoritesButton.setImageDrawable(
+            AppCompatResources.getDrawable(
+                requireContext(),
+                if (state) R.drawable.heart_filled else R.drawable.heart_empty
+            )
+        )
+    }
+
+    private fun getAvailableText(available: Int) =
+        requireContext().getString(R.string.available) + " $available " +
+                when {
+                    available % 10 == 1 && available % 100 != 11 -> requireContext().getString(R.string.piece_1)
+                    available % 10 in 2..4 && available % 100 !in 12..14 -> requireContext().getString(
+                        R.string.piece_3
+                    )
+
+                    else -> requireContext().getString(R.string.piece_2)
+                }
+
+    private fun getFeedbackCountText(feedbackCount: Int) = "$feedbackCount ${
+        when {
+            feedbackCount % 10 == 1 && feedbackCount % 100 != 11 -> requireContext().getString(R.string.feedback_1)
+            feedbackCount % 10 in 2..4 && feedbackCount % 100 !in 12..14 -> requireContext().getString(
+                R.string.feedback_2
+            )
+
+            else -> requireContext().getString(R.string.feedback_3)
         }
-        return part1 + part2
-    }
+    }"
 
     private fun setRatingStars(rating: Float) {
         binding.star0.setImageDrawable(
