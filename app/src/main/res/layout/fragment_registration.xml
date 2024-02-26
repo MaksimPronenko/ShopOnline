@@ -139,7 +139,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register_button"
-            style="@style/ButtonBrownBorderlessHeight51"
+            style="@style/ButtonPinkBorderlessHeight51"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

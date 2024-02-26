@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 private const val TAG = "ShopRepository"
 
-class Repository @Inject constructor(val application: App, private val dao: ShopDao) {
+class Repository @Inject constructor(private val application: App, private val dao: ShopDao) {
 
     private val imagesMap: Map<String, List<Int>> = mapOf(
         "cbf0c984-7c6c-4ada-82da-e29dc698bb50" to listOf(0, 1),
@@ -114,11 +114,12 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
         return favourites.toList()
     }
 
-    private suspend fun clearCatalogData() {
+    suspend fun clearCatalogData() {
         dao.removeProductDataTable()
         dao.removeTagTable()
         dao.removeInfoPartTable()
         dao.removeImageTable()
+        dao.removeAllFavourite()
     }
 
     private fun convertShopDataToProductTableList(shopData: ShopData): List<ProductTable> {
@@ -222,7 +223,13 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
         dao.addCurrentUserTable(currentUserTable)
     }
 
-    suspend fun getUserTable(phoneNumber: String): UserTable? {
-        return dao.getUserTable(phoneNumber)
+    suspend fun getCurrenUserPhoneNumber(): String = dao.getCurrentUserTableList()[0].phoneNumber
+
+    suspend fun getUserTable(phoneNumber: String): UserTable? = dao.getUserTable(phoneNumber)
+
+    suspend fun getFavouritesCount(): Int = dao.getFavouritesCount()
+
+    suspend fun clearCurrentUserTable() {
+        dao.removeCurrentUserTable()
     }
 }

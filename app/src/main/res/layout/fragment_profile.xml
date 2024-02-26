@@ -21,7 +21,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/user_button"
-        style="@style/ButtonBrownBorderlessHeight49"
+        style="@style/ButtonBorderlessHeight49"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -31,7 +31,6 @@
         android:paddingVertical="6.5dp"
         android:paddingHorizontal="8dp"
         android:drawableEnd="@drawable/exit"
-        android:gravity="start||top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_fragment_title"
@@ -53,7 +52,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/favourites_button"
-        style="@style/ButtonBrownBorderlessHeight49"
+        style="@style/ButtonBorderlessHeight49"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -63,11 +62,10 @@
         android:paddingVertical="6.5dp"
         android:paddingHorizontal="8dp"
         android:drawableEnd="@drawable/arrow_right"
-        android:gravity="start||top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_button"
-        tools:text="@tools:sample/cities" />
+        android:text="@string/favourites"
+        app:layout_constraintTop_toBottomOf="@id/user_button" />
 
     <TextView
         android:id="@+id/product_quantity"
@@ -85,7 +83,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/shops_button"
-        style="@style/ButtonBrownBorderlessHeight49"
+        style="@style/ButtonBorderlessHeight49"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -94,15 +92,15 @@
         android:drawablePadding="16dp"
         android:paddingHorizontal="8dp"
         android:drawableEnd="@drawable/arrow_right"
-        android:gravity="start||center"
+        android:gravity="center_vertical"
+        android:text="@string/shops"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/favourites_button"
-        tools:text="@tools:sample/cities" />
+        app:layout_constraintTop_toBottomOf="@id/favourites_button" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/feedback_button"
-        style="@style/ButtonBrownBorderlessHeight49"
+        style="@style/ButtonBorderlessHeight49"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -111,15 +109,16 @@
         android:drawablePadding="16dp"
         android:paddingHorizontal="8dp"
         android:drawableEnd="@drawable/arrow_right"
-        android:gravity="start||center"
+        android:gravity="center_vertical"
+        android:text="@string/feedback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shops_button"
-        tools:text="@tools:sample/cities" />
+/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/offer_button"
-        style="@style/ButtonBrownBorderlessHeight49"
+        style="@style/ButtonBorderlessHeight49"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -128,15 +127,15 @@
         android:drawablePadding="16dp"
         android:paddingHorizontal="8dp"
         android:drawableEnd="@drawable/arrow_right"
-        android:gravity="start||center"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/offer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/feedback_button"
-        tools:text="@tools:sample/cities" />
+        app:layout_constraintTop_toBottomOf="@id/feedback_button" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/product_return_button"
-        style="@style/ButtonBrownBorderlessHeight49"
+        style="@style/ButtonBorderlessHeight49"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -145,11 +144,23 @@
         android:drawablePadding="16dp"
         android:paddingHorizontal="8dp"
         android:drawableEnd="@drawable/arrow_right"
-        android:gravity="start||center"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/offer_button"
-        tools:text="@tools:sample/cities" />
+        android:text="@string/product_return"
+        app:layout_constraintTop_toBottomOf="@id/offer_button" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exit_button"
+        style="@style/ButtonBorderlessHeight51"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/exit"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress"

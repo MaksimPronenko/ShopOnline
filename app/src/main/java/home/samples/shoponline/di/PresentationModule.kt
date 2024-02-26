@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import home.samples.shoponline.App
 import home.samples.shoponline.data.Repository
 import home.samples.shoponline.ui.catalog.CatalogViewModel
 import home.samples.shoponline.ui.catalog.CatalogViewModelFactory

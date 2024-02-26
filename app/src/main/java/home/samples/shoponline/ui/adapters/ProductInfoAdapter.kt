@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import home.samples.shoponline.databinding.ProductInfoItemBinding
 import home.samples.shoponline.models.InfoPartTable
 
-private const val TAG = "ProductInfoAdapter"
-
 class ProductInfoAdapter: RecyclerView.Adapter<ProductInfoViewHolder>() {
     private var data: List<InfoPartTable> = emptyList()
 

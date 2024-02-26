@@ -44,4 +44,12 @@
     <string name="feedback_2">отзыва</string>
     <string name="feedback_3">отзывов</string>
     <string name="personal_account">Личный кабинет</string>
+    <string name="shops">Магазины</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="offer">Оферта</string>
+    <string name="product_return">Возврат товара</string>
+    <string name="product_1">товар</string>
+    <string name="product_2">товара</string>
+    <string name="product_3">товаров</string>
+    <string name="exit">Выйти</string>
 </resources>

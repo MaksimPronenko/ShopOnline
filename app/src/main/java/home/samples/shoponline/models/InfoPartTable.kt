@@ -2,7 +2,6 @@ package home.samples.shoponline.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "info_part_table",

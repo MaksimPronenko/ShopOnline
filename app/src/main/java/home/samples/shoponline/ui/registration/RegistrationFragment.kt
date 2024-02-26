@@ -182,6 +182,7 @@ class RegistrationFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.registrationResult.collect { result ->
+                    viewModel.saveCurrentUserTable()
                     if (result) {
                         findNavController().navigate(
                             R.id.action_RegistrationFragment_to_CatalogFragment
@@ -192,6 +193,10 @@ class RegistrationFragment : Fragment() {
                         )
                     }
                 }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.buttonStateChannel.collect { state ->
                     Log.d(TAG, "buttonStateChannel.collect state = $state")
                     buttonStateRefresh(state)
@@ -207,7 +212,10 @@ class RegistrationFragment : Fragment() {
                     .collect { state ->
                         when (state) {
                             is RegistrationVMState.WorkingState -> {
-                                Log.d(TAG, "RegistrationVMState.WorkingState(${state.firstNameState}, ${state.surnameState}, ${state.phoneState})")
+                                Log.d(
+                                    TAG,
+                                    "RegistrationVMState.WorkingState(${state.firstNameState}, ${state.surnameState}, ${state.phoneState})"
+                                )
                                 buttonStateRefresh(
                                     state = state.firstNameState ?: false &&
                                             state.surnameState ?: false &&

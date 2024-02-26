@@ -25,8 +25,6 @@ import home.samples.shoponline.ui.ViewModelState
 import home.samples.shoponline.ui.adapters.ImageAdapterBig
 import home.samples.shoponline.ui.adapters.ProductInfoAdapter
 import home.samples.shoponline.utils.ARG_ID
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -236,7 +234,6 @@ class ProductFragment : Fragment() {
                     available % 10 in 2..4 && available % 100 !in 12..14 -> requireContext().getString(
                         R.string.piece_3
                     )
-
                     else -> requireContext().getString(R.string.piece_2)
                 }
 
@@ -246,7 +243,6 @@ class ProductFragment : Fragment() {
             feedbackCount % 10 in 2..4 && feedbackCount % 100 !in 12..14 -> requireContext().getString(
                 R.string.feedback_2
             )
-
             else -> requireContext().getString(R.string.feedback_3)
         }
     }"

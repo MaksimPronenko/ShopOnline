@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import home.samples.shoponline.data.Repository
+import home.samples.shoponline.models.CurrentUserTable
 import home.samples.shoponline.models.UserTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -32,10 +33,10 @@ class RegistrationViewModel(
     private var firstNameState: Boolean? = null
 
     private var surname: String = ""
-    var surnameState: Boolean? = null
+    private var surnameState: Boolean? = null
 
     private var phoneNumber: String = ""
-    var phoneNumberState: Boolean? = null
+    private var phoneNumberState: Boolean? = null
     var receivedDigits: String = "" // Полученные цифры номера без учёта +7
 
     private val _registrationResult = Channel<Boolean>()
@@ -53,20 +54,21 @@ class RegistrationViewModel(
             val isAlreadyRegistered = repository.isUserExistsInUserTable(phoneNumber)
             Log.d(TAG, "Пользователь уже есть в базе: $firstName $surname, $phoneNumber.")
 
-            if (!isAlreadyRegistered) {
-                repository.addUserTable(
-                    UserTable(
-                        phoneNumber = phoneNumber,
-                        firstName = firstName,
-                        surname = surname
-                    )
+            repository.addUserTable(
+                UserTable(
+                    phoneNumber = phoneNumber,
+                    firstName = firstName,
+                    surname = surname
                 )
-                Log.d(TAG, "Пользователь добавлен в базу: $firstName $surname, $phoneNumber.")
-            }
+            )
+            Log.d(TAG, "Пользователь добавлен в базу: $firstName $surname, $phoneNumber.")
 
             _state.value =
                 RegistrationVMState.WorkingState(firstNameState, surnameState, phoneNumberState)
-            Log.d(TAG, "RegistrationVMState.WorkingState($firstNameState, $surnameState, $phoneNumberState)")
+            Log.d(
+                TAG,
+                "RegistrationVMState.WorkingState($firstNameState, $surnameState, $phoneNumberState)"
+            )
             _registrationResult.send(isAlreadyRegistered)
         }
     }
@@ -107,6 +109,16 @@ class RegistrationViewModel(
                 RegistrationVMState.WorkingState(firstNameState, surnameState, phoneNumberState)
             _buttonStateChannel.send(
                 element = firstNameState ?: false && surnameState ?: false && phoneNumberState ?: false
+            )
+        }
+    }
+
+    fun saveCurrentUserTable() {
+        viewModelScope.launch {
+            repository.saveCurrentUserTable(
+                currentUserTable = CurrentUserTable(
+                    phoneNumber = phoneNumber
+                )
             )
         }
     }

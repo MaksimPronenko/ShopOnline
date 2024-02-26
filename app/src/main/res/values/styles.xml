@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ButtonBrownBorderlessHeight51" parent="Widget.AppCompat.Button.Borderless">
+    <style name="ButtonPinkBorderlessHeight51" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:backgroundTint">@drawable/button_colors</item>
         <item name="android:minHeight">51dp</item>
         <item name="android:strokeWidth">0</item>
@@ -11,15 +11,21 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="ButtonBrownBorderlessHeight49" parent="Widget.AppCompat.Button.Borderless">
+    <style name="ButtonBorderlessHeight49" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/button_rounded_8</item>
         <item name="android:backgroundTint">@color/grey_background</item>
         <item name="android:minHeight">49dp</item>
         <item name="android:strokeWidth">0</item>
+        <item name="android:gravity">start</item>
         <item name="android:fontFamily">@font/sf_pro_display_medium</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ButtonBorderlessHeight51" parent="ButtonBorderlessHeight49">
+        <item name="android:minHeight">51dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="ShopInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">

@@ -24,9 +24,6 @@
         android:id="@+id/MainFragment"
         android:name="home.samples.shoponline.ui.main.MainFragment"
         tools:layout="@layout/fragment_main">
-
-
-
     </fragment>
 
     <fragment
@@ -56,8 +53,6 @@
         android:id="@+id/FavouritesFragment"
         android:name="home.samples.shoponline.ui.favourites.FavouritesFragment"
         tools:layout="@layout/fragment_favourites">
-
-
     </fragment>
 
     <fragment
@@ -65,6 +60,9 @@
         android:name="home.samples.shoponline.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile">
 
+        <action
+            android:id="@+id/action_ProfileFragment_to_RegistrationFragment"
+            app:destination="@id/RegistrationFragment"/>
 
     </fragment>
 
