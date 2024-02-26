@@ -1,6 +1,7 @@
 package home.samples.shoponline.data
 
 import androidx.room.*
+import home.samples.shoponline.models.CurrentUserTable
 import home.samples.shoponline.models.FavouritesTable
 import home.samples.shoponline.models.ImageTable
 import home.samples.shoponline.models.InfoPartTable
@@ -20,6 +21,22 @@ interface ShopDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addUserTable(userTable: UserTable)
 
+    // Запрос на получение данных пользователя по телефонному номеру
+    @Query("SELECT * FROM user_table WHERE phone_number LIKE :phoneNumber")
+    suspend fun getUserTable(phoneNumber: String): UserTable?
+
+    // Запрос на добавление текущего пользователя
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun addCurrentUserTable(currentUserTable: CurrentUserTable)
+
+    // Запрос на удаление текущего пользователя
+    @Query("DELETE FROM current_user_table")
+    suspend fun removeCurrentUserTable()
+
+    // Запрос текущего пользователя. Это будет List размера 1.
+    @Query("SELECT * FROM current_user_table")
+    suspend fun getCurrentUserTableList(): List<CurrentUserTable>
+
     // Запрос на добавление новой записи данных товара
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addProductDataTable(productDataTable: ProductDataTable)
@@ -28,7 +45,7 @@ interface ShopDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addTagTable(tagTable: TagTable)
 
-    // Запрос на добавление новой записи тегов товара
+    // Запрос на добавление новой записи информации о товаре
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addInfoPartTable(infoPartTable: InfoPartTable)
 

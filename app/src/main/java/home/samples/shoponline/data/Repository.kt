@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import home.samples.shoponline.App
 import home.samples.shoponline.api.retrofit
+import home.samples.shoponline.models.CurrentUserTable
 import home.samples.shoponline.models.FavouritesTable
 import home.samples.shoponline.models.ImageTable
 import home.samples.shoponline.models.InfoPartTable
@@ -214,5 +215,14 @@ class Repository @Inject constructor(val application: App, private val dao: Shop
                 favourite = favourite
             )
         } else null
+    }
+
+    suspend fun saveCurrentUserTable(currentUserTable: CurrentUserTable) {
+        dao.removeCurrentUserTable()
+        dao.addCurrentUserTable(currentUserTable)
+    }
+
+    suspend fun getUserTable(phoneNumber: String): UserTable? {
+        return dao.getUserTable(phoneNumber)
     }
 }
