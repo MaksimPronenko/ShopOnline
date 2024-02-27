@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -91,9 +90,7 @@ class CatalogFragment : Fragment() {
         binding.sorting.adapter = catalogSortingAdapter
 
         binding.sorting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(requireContext(), "error", Toast.LENGTH_LONG).show()
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -101,51 +98,17 @@ class CatalogFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_LONG).show()
                 viewModel.sortProducts(position)
             }
         }
 
         binding.catalogFilterGroup.setOnCheckedStateChangeListener { _, _ ->
-            if (binding.chipWatchAll.isChecked) {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.watch_all),
-                    Toast.LENGTH_LONG
-                ).show()
-                viewModel.filterProducts(productType = 0)
-            } else if (binding.chipFace.isChecked) {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.face),
-                    Toast.LENGTH_LONG
-                ).show()
-                viewModel.filterProducts(productType = 1)
-            } else if (binding.chipBody.isChecked) {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.body),
-                    Toast.LENGTH_LONG
-                ).show()
-                viewModel.filterProducts(productType = 2)
-            } else if (binding.chipSuntan.isChecked) {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.suntan),
-                    Toast.LENGTH_LONG
-                ).show()
-                viewModel.filterProducts(productType = 3)
-            } else if (binding.chipMask.isChecked) {
-                Toast.makeText(
-                    requireContext(),
-                    requireContext().getString(R.string.mask),
-                    Toast.LENGTH_LONG
-                ).show()
-                viewModel.filterProducts(productType = 4)
-            } else {
-                Toast.makeText(requireContext(), "Чипы не выбраны", Toast.LENGTH_LONG).show()
-                viewModel.filterProducts(productType = 0)
-            }
+            if (binding.chipWatchAll.isChecked) viewModel.filterProducts(productType = 0)
+            else if (binding.chipFace.isChecked) viewModel.filterProducts(productType = 1)
+            else if (binding.chipBody.isChecked) viewModel.filterProducts(productType = 2)
+            else if (binding.chipSuntan.isChecked) viewModel.filterProducts(productType = 3)
+            else if (binding.chipMask.isChecked) viewModel.filterProducts(productType = 4)
+            else viewModel.filterProducts(productType = 0)
         }
 
         channelProcessing()

@@ -80,6 +80,20 @@
         <item name="closeIcon">@drawable/chip_close</item>
         <item name="chipCornerRadius">14dp</item>
         <item name="chipMinHeight">28dp</item>
+        <item name="chipMinTouchTargetSize">28dp</item>
+    </style>
+
+    <style name="FavouritesChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipSpacing">0dp</item>
+        <item name="chipBackgroundColor">@color/favourites_chip_background_colors</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/favourites_chip_text_colors</item>
+        <item name="android:textAlignment">center</item>
+        <item name="chipCornerRadius">8dp</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="chipMinTouchTargetSize">36dp</item>
     </style>
 
 </resources>

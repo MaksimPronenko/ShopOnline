@@ -12,7 +12,6 @@ import home.samples.shoponline.R
 import home.samples.shoponline.databinding.CatalogItemBinding
 import home.samples.shoponline.models.ProductTableWithFavourites
 
-
 class ProductAdapter(
     val context: Context,
     private val onItemClick: (String) -> Unit,

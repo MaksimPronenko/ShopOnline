@@ -12,11 +12,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import home.samples.shoponline.R
 import home.samples.shoponline.databinding.FragmentFavouritesBinding
 import home.samples.shoponline.ui.ViewModelState
+import home.samples.shoponline.ui.adapters.ProductAdapter
+import home.samples.shoponline.utils.ARG_ID
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +37,17 @@ class FavouritesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var productAdapter: ProductAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        productAdapter = ProductAdapter(
+            context = requireContext(),
+            onItemClick = { id -> onItemClick(id) },
+            addToFavorites = { id, _ -> viewModel.removeFavourite(id) }
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,10 +61,32 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         Log.d(TAG, "Функция onViewCreated() запущена")
 
+        viewModel.loadFavouritesData()
+
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.favouritesChipGroup.setOnCheckedStateChangeListener { _, _ ->
+            if (binding.chipProducts.isChecked) viewModel.handleChipChoice(type = 0)
+            else if (binding.chipBrands.isChecked) viewModel.handleChipChoice(type = 1)
+        }
+
+        channelProcessing()
         statesProcessing()
+    }
+
+    private fun channelProcessing() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favouriteProductsChannel.collect { productList ->
+                    Log.d(TAG, "productsChannel.collect Product = $productList")
+                    productAdapter.setData(productList)
+                }
+            }
+        }
     }
 
     private fun statesProcessing() {
@@ -58,17 +96,52 @@ class FavouritesFragment : Fragment() {
                     .collect { state ->
                         when (state) {
                             ViewModelState.Loading -> {
+                                Log.d(TAG, "ViewModelState.Loading")
                                 binding.progress.isVisible = true
+                                binding.favouritesRecycler.isVisible = false
                             }
+
                             ViewModelState.Loaded -> {
+                                Log.d(TAG, "ViewModelState.Loaded")
                                 binding.progress.isVisible = false
+                                binding.favouritesRecycler.isVisible = true
+//                                viewModel.favouriteProductsFlow.onEach { favouriteProductList ->
+//                                    productAdapter.setData(favouriteProductList)
+//                                    Log.d(TAG, favouriteProductList.toString())
+//                                }.launchIn(viewLifecycleOwner.lifecycleScope)
+                                productAdapter.setData(viewModel.favouriteProductsList)
+                                refreshChipGroup()
                             }
+
                             ViewModelState.Error -> {
+                                Log.d(TAG, "ViewModelState.Error")
                                 binding.progress.isVisible = false
+                                binding.favouritesRecycler.isVisible = false
                             }
                         }
                     }
             }
+        }
+    }
+
+    private fun onItemClick(id: String) {
+        val bundle =
+            Bundle().apply {
+                putString(
+                    ARG_ID,
+                    id
+                )
+            }
+        findNavController().navigate(
+            R.id.action_FavouritesFragment_to_ProductFragment,
+            bundle
+        )
+    }
+
+    private fun refreshChipGroup() {
+        when (viewModel.chosenChip) {
+            0 -> binding.chipProducts.isChecked = true
+            1 -> binding.chipBrands.isChecked = true
         }
     }
 

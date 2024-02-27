@@ -47,6 +47,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.favouritesButton.setOnClickListener {
+            findNavController().navigate(R.id.action_ProfileFragment_to_FavouritesFragment)
+        }
+
         binding.exitButton.setOnClickListener {
             viewModel.clearDataOnExit()
             findNavController().navigate(R.id.action_ProfileFragment_to_RegistrationFragment)

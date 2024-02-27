@@ -52,4 +52,6 @@
     <string name="product_2">товара</string>
     <string name="product_3">товаров</string>
     <string name="exit">Выйти</string>
+    <string name="products">Товары</string>
+    <string name="brands">Бренды</string>
 </resources>
