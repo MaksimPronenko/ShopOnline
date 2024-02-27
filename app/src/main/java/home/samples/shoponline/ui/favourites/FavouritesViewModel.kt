@@ -29,9 +29,7 @@ class FavouritesViewModel(
 
     var chosenChip: Int = 0
 
-    private var favouritesList: List<String> = emptyList()
-    private var favouriteProducts: MutableList<ProductTableWithFavourites> = mutableListOf()
-    var favouriteProductsList: List<ProductTableWithFavourites> = emptyList()
+    private var favouriteProductsList: List<ProductTableWithFavourites> = emptyList()
 
     fun handleChipChoice(type: Int) {
         chosenChip = type
@@ -44,16 +42,7 @@ class FavouritesViewModel(
             _state.value = ViewModelState.Loading
             Log.d(TAG, "ViewModelState.Loading")
 
-            favouritesList = repository.getFavourites()
-            Log.d(TAG, "favouritesList = $favouritesList")
-            favouritesList.forEach { id ->
-                val favouriteProduct = repository.getProductTable(id)
-                if (favouriteProduct != null) {
-                    favouriteProducts.add(favouriteProduct!!)
-                    Log.d(TAG, "Добавлен товар с id = $id")
-                }
-            }
-            favouriteProductsList = favouriteProducts.toList()
+            favouriteProductsList = repository.getFavouriteProductsList()
 
             if (favouriteProductsList.isNotEmpty()) {
                 _state.value = ViewModelState.Loaded
@@ -71,20 +60,7 @@ class FavouritesViewModel(
     fun removeFavourite(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addOrRemoveFavourite(id, false)
-            val refreshedProductList: MutableList<ProductTableWithFavourites> = mutableListOf()
-            favouriteProductsList.forEach {
-                if (it.productTable.productDataTable.id == id) {
-                    refreshedProductList.add(
-                        ProductTableWithFavourites(
-                            productTable = it.productTable,
-                            favourite = false
-                        )
-                    )
-                } else {
-                    refreshedProductList.add(it)
-                }
-            }
-            favouriteProductsList = refreshedProductList.toList()
+            favouriteProductsList = favouriteProductsList.filter{ it.productTable.productDataTable.id != id }
             _favouriteProductsChannel.send(favouriteProductsList)
         }
     }

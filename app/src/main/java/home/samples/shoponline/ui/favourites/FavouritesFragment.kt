@@ -63,6 +63,8 @@ class FavouritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "Функция onViewCreated() запущена")
 
+        binding.favouritesRecycler.adapter = productAdapter
+
         viewModel.loadFavouritesData()
 
         binding.backButton.setOnClickListener {
@@ -105,11 +107,10 @@ class FavouritesFragment : Fragment() {
                                 Log.d(TAG, "ViewModelState.Loaded")
                                 binding.progress.isVisible = false
                                 binding.favouritesRecycler.isVisible = true
-//                                viewModel.favouriteProductsFlow.onEach { favouriteProductList ->
-//                                    productAdapter.setData(favouriteProductList)
-//                                    Log.d(TAG, favouriteProductList.toString())
-//                                }.launchIn(viewLifecycleOwner.lifecycleScope)
-                                productAdapter.setData(viewModel.favouriteProductsList)
+                                viewModel.favouriteProductsFlow.onEach { favouriteProductList ->
+                                    productAdapter.setData(favouriteProductList)
+                                    Log.d(TAG, "Size of list = ${favouriteProductList.size}")
+                                }.launchIn(viewLifecycleOwner.lifecycleScope)
                                 refreshChipGroup()
                             }
 

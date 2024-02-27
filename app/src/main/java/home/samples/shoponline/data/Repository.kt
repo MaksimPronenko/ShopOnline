@@ -232,4 +232,13 @@ class Repository @Inject constructor(private val application: App, private val d
     suspend fun clearCurrentUserTable() {
         dao.removeCurrentUserTable()
     }
+
+    suspend fun getFavouriteProductsList(): List<ProductTableWithFavourites> {
+        val allProducts: List<ProductTableWithFavourites>? = getCatalogData(catalogFirstOpened = false)
+        return if(allProducts.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            allProducts.filter { it.favourite }
+        }
+    }
 }
